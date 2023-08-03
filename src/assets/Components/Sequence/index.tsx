@@ -1,4 +1,4 @@
-import React, { forwardRef, Ref } from "react";
+import { forwardRef, Ref } from "react";
 import { Skeleton } from "../Skeleton/index";
 import ImageArray from "./newImages";
 import { ImageState } from "../hook"; // Make sure to import the ImageState type
