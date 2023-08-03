@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import './App.css'
 import { Controller, Scene } from 'react-scrollmagic-r18'
-import Sequence from './assets/Components/Sequence/index'
+import Sequence from './Components/Sequence/index'
 
 function App() {
   const ref = useRef<HTMLSpanElement>(null);
