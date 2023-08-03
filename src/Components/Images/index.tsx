@@ -15,6 +15,5 @@ for (let i = 0; i <= 399; i++) {
         console.error(`Error loading image ${imageURL}:`, error);
       });
   }
-    
     return images;
 }
