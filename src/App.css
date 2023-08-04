@@ -7,15 +7,15 @@ body{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color: gray;
 }
 .App {
   font-family: sans-serif;
-  text-align: center;
   width: 100vw;
   height: 100vh;
 }
 
-.skeleton {
+/* .skeleton {
   background-color: rgba(240, 240, 240, 1);
   background-image: linear-gradient(
     90deg,
@@ -43,4 +43,5 @@ body{
       background-position: calc(200px + 100%) 0;
     }
   }
-}
+} */
+/* App.css */
