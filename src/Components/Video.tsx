@@ -62,6 +62,7 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
           borderRadius: '5px',
           pointerEvents: 'none',
           opacity: 0,
+          color: 'white',
         }}
       >
         <h1 className='text-red-500'>JAY L</h1>
@@ -73,7 +74,7 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
         src={currentImageSrc}
         alt="Image Sequence"
         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        onLoad={handleImageLoad}
+        onChange={handleImageLoad}
       />
     </div>
   );
