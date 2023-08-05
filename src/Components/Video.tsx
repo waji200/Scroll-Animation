@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 
 interface VideoProps {
@@ -10,66 +10,92 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const numFrames = imageSequenceSrc.length;
-  const currentFrameIndex = Math.floor(progress * (numFrames - 1));
-  const currentImageSrc = imageSequenceSrc[currentFrameIndex];
+  const [currentImage, setCurrentImage] = useState<HTMLImageElement | null>(null);
+  const [isImageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas?.getContext('2d');
+
+    if (currentImage && context) {
+      // Calculate the dimensions to fit the image within the canvas while preserving aspect ratio
+      const canvasWidth = canvas!.width;
+      const canvasHeight = canvas!.height;
+      const imageAspectRatio = currentImage.width / currentImage.height;
+      const canvasAspectRatio = canvasWidth / canvasHeight;
+
+      let drawWidth = canvasWidth;
+      let drawHeight = canvasHeight;
+
+      if (imageAspectRatio > canvasAspectRatio) {
+        // Image is wider than canvas
+        drawWidth = canvasWidth;
+        drawHeight = canvasWidth / imageAspectRatio;
+      } else {
+        // Image is taller than canvas
+        drawWidth = canvasHeight * imageAspectRatio;
+        drawHeight = canvasHeight;
+      }
+
+      // Center the image on the canvas
+      const offsetX = (canvasWidth - drawWidth) / 2;
+      const offsetY = (canvasHeight - drawHeight) / 2;
+
+      context.clearRect(0, 0, canvasWidth, canvasHeight);
+      context.drawImage(currentImage, offsetX, offsetY, drawWidth, drawHeight);
+    }
+  }, [progress, currentImage]);
+
+  useEffect(() => {
     const image = new Image();
-  
+    image.onload = () => {
+      setCurrentImage(image);
+      setImageLoaded(true);
+    };
+    image.src = imageSequenceSrc[Math.floor(progress * (numFrames - 1))];
+  }, [progress, numFrames, imageSequenceSrc]);
+
+  useEffect(() => {
     // Show text overlay for 5 seconds when the image sequence starts
     if (textRef.current) {
-      if (progress > 50 / numFrames && progress < 120 / numFrames) {
+      if (progress > 50 / numFrames && progress < 90 / numFrames) {
         gsap.to(textRef.current, { autoAlpha: 1, duration: 0.5, fontSize: '3em' });
       } else {
         gsap.to(textRef.current, { autoAlpha: 0, duration: 0.5, fontSize: '0.3em' });
       }
     }
-  
-    // Load the image and draw it on the canvas
-    image.onload = () => {
-      if (context) {
-        // Calculate the dimensions to fit the image within the canvas while preserving aspect ratio
-        const canvasWidth = canvas!.width;
-        const canvasHeight = canvas!.height;
-        const imageAspectRatio = image.width / image.height;
-        const canvasAspectRatio = canvasWidth / canvasHeight;
-  
-        let drawWidth = canvasWidth;
-        let drawHeight = canvasHeight;
-  
-        if (imageAspectRatio > canvasAspectRatio) {
-          // Image is wider than canvas
-          drawWidth = canvasWidth;
-          drawHeight = canvasWidth / imageAspectRatio;
-        } else {
-          // Image is taller than canvas
-          drawWidth = canvasHeight * imageAspectRatio;
-          drawHeight = canvasHeight;
-        }
-  
-        // Center the image on the canvas
-        const offsetX = (canvasWidth - drawWidth) / 2;
-        const offsetY = (canvasHeight - drawHeight) / 2;
-  
-        context.clearRect(0, 0, canvasWidth, canvasHeight);
-        context.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
+  }, [progress, numFrames]);
+
+  useEffect(() => {
+    let animationFrameId: number;
+
+    // Throttle the updates using requestAnimationFrame
+    const updateImage = () => {
+      if (isImageLoaded && currentImage) {
+        animationFrameId = requestAnimationFrame(updateImage);
+        setCurrentImage(null);
       }
     };
-    image.src = currentImageSrc;
-  }, [progress, numFrames, currentImageSrc]);
+
+    if (isImageLoaded) {
+      updateImage();
+    }
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isImageLoaded, currentImage]);
 
   return (
-    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+    <div style={{width: '100%', height: '100%', position: 'relative' }}>
       {/* Text Overlay */}
       <div
         ref={textRef}
         style={{
           position: 'absolute',
           top: '50%',
-          color: 'white',
           left: '50%',
+          color: 'white',
           transform: 'translate(-50%, -50%)',
           fontSize: '0.3em',
           padding: '10px',
@@ -86,7 +112,6 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
         ref={canvasRef}
         width={window.innerWidth} // Adjust the canvas size as needed
         height={window.innerHeight}
-        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
       />
     </div>
   );
