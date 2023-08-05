@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 
 interface VideoProps {
@@ -12,6 +12,7 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
   const numFrames = imageSequenceSrc.length;
   const currentFrameIndex = Math.floor(progress * (numFrames - 1));
   const currentImageSrc = imageSequenceSrc[currentFrameIndex];
+  const [isImageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     // Preload the images
@@ -25,25 +26,26 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
     preloadImages();
   }, [imageSequenceSrc]);
 
-  const text = textRef.current;
+  const handleImageLoad = () => {
+    // Set the flag to indicate that the image has loaded
+    setImageLoaded(true);
+  };
 
   useEffect(() => {
     // Show text overlay for 5 seconds when the image sequence starts
-    if (text) {
+    if (textRef.current) {
       if (progress > 50 / numFrames && progress < 90 / numFrames) {
-        gsap.to(text, { autoAlpha: 1, duration: 0.5, fontSize: '3em' });
+        gsap.to(textRef.current, { autoAlpha: 1, duration: 0.5, fontSize: '3em' });
       } else {
-        gsap.to(text, { autoAlpha: 0, duration: 0.5, fontSize: '0.3em' });
+        gsap.to(textRef.current, { autoAlpha: 0, duration: 0.5, fontSize: '0.3em' });
       }
     }
-  }, [progress, numFrames, text]);
 
-  // Update image source without delay
-  useEffect(() => {
-    if (imageRef.current) {
+    // Update image source only if the image is loaded
+    if (isImageLoaded && imageRef.current) {
       imageRef.current.src = currentImageSrc;
     }
-  }, [currentImageSrc]);
+  }, [progress, numFrames, currentImageSrc, isImageLoaded]);
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
@@ -60,10 +62,9 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
           borderRadius: '5px',
           pointerEvents: 'none',
           opacity: 0,
-          color: 'white',
         }}
       >
-        <h1>JAY L</h1>
+        <h1 className='text-red-500'>JAY L</h1>
       </div>
 
       {/* Image */}
@@ -72,6 +73,7 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
         src={currentImageSrc}
         alt="Image Sequence"
         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        onLoad={handleImageLoad}
       />
     </div>
   );
