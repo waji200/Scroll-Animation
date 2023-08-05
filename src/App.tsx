@@ -26,7 +26,7 @@ function App() {
       <Controller>
         <Scene duration="600%" triggerHook="onLeave" pin>
           {(progress: number) => (
-            <div style={{ height: '100vh', position: 'relative' }}>
+            <div className='border-2 border-red-600 border-solid' style={{ height: '100vh', position: 'relative' }}>
               <Video progress={progress} imageSequenceSrc={imageSequenceSrc} />
             </div>
           )}

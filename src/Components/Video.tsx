@@ -16,31 +16,31 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas?.getContext('2d');
-
+  
     if (currentImage && context) {
-      // Calculate the dimensions to fit the image within the canvas while preserving aspect ratio
-      const canvasWidth = canvas!.width;
-      const canvasHeight = canvas!.height;
+      // Calculate the dimensions to fit the image within the canvas height while preserving aspect ratio
+      const canvasWidth = canvas!.parentElement!.clientWidth;
+      const canvasHeight = canvas!.parentElement!.clientHeight;
       const imageAspectRatio = currentImage.width / currentImage.height;
       const canvasAspectRatio = canvasWidth / canvasHeight;
-
-      let drawWidth = canvasWidth;
-      let drawHeight = canvasHeight;
-
+  
+      let drawWidth = currentImage.width;
+      let drawHeight = currentImage.height;
+  
       if (imageAspectRatio > canvasAspectRatio) {
         // Image is wider than canvas
+        drawHeight = canvasHeight;
+        drawWidth = canvasHeight * imageAspectRatio;
+      } else {
+        // Image is taller than canvas or aspect ratios match
         drawWidth = canvasWidth;
         drawHeight = canvasWidth / imageAspectRatio;
-      } else {
-        // Image is taller than canvas
-        drawWidth = canvasHeight * imageAspectRatio;
-        drawHeight = canvasHeight;
       }
-
+  
       // Center the image on the canvas
       const offsetX = (canvasWidth - drawWidth) / 2;
       const offsetY = (canvasHeight - drawHeight) / 2;
-
+  
       context.clearRect(0, 0, canvasWidth, canvasHeight);
       context.drawImage(currentImage, offsetX, offsetY, drawWidth, drawHeight);
     }
@@ -87,7 +87,7 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
   }, [isImageLoaded, currentImage]);
 
   return (
-    <div style={{width: '100%', height: '100%', position: 'relative' }}>
+    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       {/* Text Overlay */}
       <div
         ref={textRef}
@@ -104,14 +104,15 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
           opacity: 0,
         }}
       >
-        <h1 className='text-red-500'>JAY L</h1>
+        <h1 >JAY L</h1>
       </div>
 
       {/* Canvas */}
       <canvas
         ref={canvasRef}
-        width={window.innerWidth} // Adjust the canvas size as needed
-        height={window.innerHeight}
+        width={canvasRef.current?.parentElement?.clientWidth} // Adjust the canvas size as needed
+        height={canvasRef.current?.parentElement?.clientHeight}
+        // style={{ width: '100%', height: '100%', objectFit: 'cover' }}
       />
     </div>
   );

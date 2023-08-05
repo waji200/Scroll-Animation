@@ -1,4 +1,4 @@
-@tailwind base;
+
 
 #root {
   padding: 0;
@@ -14,8 +14,6 @@ body{
 .App {
   font-family: sans-serif;
 }
-@tailwind components;
-@tailwind utilities;
 
 /* .skeleton {
   background-color: rgba(240, 240, 240, 1);
