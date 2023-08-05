@@ -1,43 +1,44 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
 
 interface VideoProps {
   progress: number;
-  videoSrc: string;
+  imageSequenceSrc: string[];
 }
 
-const Video: React.FC<VideoProps> = ({ progress, videoSrc }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
+const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
+  const imageRef = useRef<HTMLImageElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
-  const [duration, setDuration] = useState<number>(0);
+  const [numFrames, setNumFrames] = useState<number>(0);
 
-    const video = videoRef.current;
-    const text = textRef.current;
+  useEffect(() => {
+    // Calculate the total number of image frames
+    setNumFrames(imageSequenceSrc.length);
 
-    // Sync video playback with the progress (scroll position)
-    if (video) {
-      const currentTime = progress * duration;
-      video.currentTime = currentTime;
-    }
+    // Preload the images
+    imageSequenceSrc.forEach((imageSrc) => {
+      const img = new Image();
+      img.src = imageSrc;
+    });
+  }, [imageSequenceSrc]);
 
-    // Show text overlay for 5 seconds when video starts
-    if (text) {
-      if (progress > 0.2 && progress < 7 / duration) {
-        gsap.to(text, { autoAlpha: 1, duration: 0.5, fontSize: '3em' },);
-      } else {
-        gsap.to(text, { autoAlpha: 0, duration: 0.5, fontSize: '0.3em' });
-      }
+  const text = textRef.current;
+
+  // Calculate the frame index based on progress (scroll position)
+  const currentFrameIndex = Math.floor(progress * (numFrames - 1));
+  const currentImageSrc = imageSequenceSrc[currentFrameIndex];
+
+  // Show text overlay for 5 seconds when the image sequence starts
+  if (text) {
+    if (progress > 50 / numFrames && progress < 90 / numFrames) {
+      gsap.to(text, { autoAlpha: 1, duration: 0.5, fontSize: '3em' });
+    } else {
+      gsap.to(text, { autoAlpha: 0, duration: 0.5, fontSize: '0.3em' });
     }
-  // Calculate video duration on metadata load
-  const handleVideoLoadedMetadata = () => {
-    const video = videoRef.current;
-    if (video) {
-      setDuration(video.duration);
-    }
-  };
+  }
 
   return (
-    <div style={{width: '100%', position: 'relative' }}>
+    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       {/* Text Overlay */}
       <div
         ref={textRef}
@@ -57,17 +58,13 @@ const Video: React.FC<VideoProps> = ({ progress, videoSrc }) => {
         <h1>JAY L</h1>
       </div>
 
-      {/* Video */}
-      <video
-        ref={videoRef}
-        src={videoSrc}
-        width="100%"
-        height="100%"
-        preload="metadata"
-        muted
-        onLoadedMetadata={handleVideoLoadedMetadata}
-      >
-      </video>
+      {/* Image */}
+      <img
+        ref={imageRef}
+        src={currentImageSrc}
+        alt="Image Sequence"
+        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+      />
     </div>
   );
 };
