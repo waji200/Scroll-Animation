@@ -1,4 +1,3 @@
-import './App.css';
 import { Controller, Scene } from 'react-scrollmagic-r18';
 import Video from './Components/Video';
 
@@ -23,6 +22,7 @@ function App() {
 
   return (
     <>
+
       <Controller>
         <Scene duration="600%" triggerHook="onLeave" pin>
           {(progress: number) => (

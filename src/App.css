@@ -1,3 +1,5 @@
+@tailwind base;
+
 #root {
   padding: 0;
   margin: 0;
@@ -7,13 +9,13 @@ body{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: black;
+  background-color: grey;
 }
 .App {
   font-family: sans-serif;
-  width: 100vw;
-  height: 100vh;
 }
+@tailwind components;
+@tailwind utilities;
 
 /* .skeleton {
   background-color: rgba(240, 240, 240, 1);
