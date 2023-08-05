@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 
 interface VideoProps {
@@ -7,45 +7,58 @@ interface VideoProps {
 }
 
 const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
-  const imageRef = useRef<HTMLImageElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const numFrames = imageSequenceSrc.length;
   const currentFrameIndex = Math.floor(progress * (numFrames - 1));
   const currentImageSrc = imageSequenceSrc[currentFrameIndex];
-  const [isImageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
-    // Preload the images
-    const preloadImages = () => {
-      imageSequenceSrc.forEach((imageSrc) => {
-        const img = new Image();
-        img.src = imageSrc;
-      });
-    };
-
-    preloadImages();
-  }, [imageSequenceSrc]);
-
-  const handleImageLoad = () => {
-    // Set the flag to indicate that the image has loaded
-    setImageLoaded(true);
-  };
-
-  useEffect(() => {
+    const canvas = canvasRef.current;
+    const context = canvas?.getContext('2d');
+    const image = new Image();
+  
     // Show text overlay for 5 seconds when the image sequence starts
     if (textRef.current) {
-      if (progress > 50 / numFrames && progress < 90 / numFrames) {
+      if (progress > 50 / numFrames && progress < 120 / numFrames) {
         gsap.to(textRef.current, { autoAlpha: 1, duration: 0.5, fontSize: '3em' });
       } else {
         gsap.to(textRef.current, { autoAlpha: 0, duration: 0.5, fontSize: '0.3em' });
       }
     }
-
-    // Update image source only if the image is loaded
-    if (isImageLoaded && imageRef.current) {
-      imageRef.current.src = currentImageSrc;
-    }
-  }, [progress, numFrames, currentImageSrc, isImageLoaded]);
+  
+    // Load the image and draw it on the canvas
+    image.onload = () => {
+      if (context) {
+        // Calculate the dimensions to fit the image within the canvas while preserving aspect ratio
+        const canvasWidth = canvas!.width;
+        const canvasHeight = canvas!.height;
+        const imageAspectRatio = image.width / image.height;
+        const canvasAspectRatio = canvasWidth / canvasHeight;
+  
+        let drawWidth = canvasWidth;
+        let drawHeight = canvasHeight;
+  
+        if (imageAspectRatio > canvasAspectRatio) {
+          // Image is wider than canvas
+          drawWidth = canvasWidth;
+          drawHeight = canvasWidth / imageAspectRatio;
+        } else {
+          // Image is taller than canvas
+          drawWidth = canvasHeight * imageAspectRatio;
+          drawHeight = canvasHeight;
+        }
+  
+        // Center the image on the canvas
+        const offsetX = (canvasWidth - drawWidth) / 2;
+        const offsetY = (canvasHeight - drawHeight) / 2;
+  
+        context.clearRect(0, 0, canvasWidth, canvasHeight);
+        context.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
+      }
+    };
+    image.src = currentImageSrc;
+  }, [progress, numFrames, currentImageSrc]);
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
@@ -55,6 +68,7 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
         style={{
           position: 'absolute',
           top: '50%',
+          color: 'white',
           left: '50%',
           transform: 'translate(-50%, -50%)',
           fontSize: '0.3em',
@@ -62,19 +76,17 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
           borderRadius: '5px',
           pointerEvents: 'none',
           opacity: 0,
-          color: 'white',
         }}
       >
         <h1 className='text-red-500'>JAY L</h1>
       </div>
 
-      {/* Image */}
-      <img
-        ref={imageRef}
-        src={currentImageSrc}
-        alt="Image Sequence"
+      {/* Canvas */}
+      <canvas
+        ref={canvasRef}
+        width={window.innerWidth} // Adjust the canvas size as needed
+        height={window.innerHeight}
         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        onChange={handleImageLoad}
       />
     </div>
   );
