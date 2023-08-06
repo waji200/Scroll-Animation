@@ -117,19 +117,19 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
       if (progress > 70 / numFrames && progress < 90 / numFrames) {
         gsap.to(textRef.current, { autoAlpha: 1, duration: 0.5, scale: '1', display: 'block' });
       } else if (progress > 90 / numFrames) {
-        gsap.to(textRef.current, { autoAlpha: 0, duration: 0.5, scale: '2', display: 'hidden' });
+        gsap.to(textRef.current, { autoAlpha: 0, duration: 0.5, scale: '2', display: 'none' });
       } else {
-        gsap.to(textRef.current, { autoAlpha: 0, duration: 0.5, scale: '0.3', display: 'hidden' });
+        gsap.to(textRef.current, { autoAlpha: 0, duration: 0.5, scale: '0.3', display: 'none' });
       }
     }
   }, [progress, numFrames]);
 
   return (
-    <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
+    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       {/* Text Overlay */}
       <div
         ref={textRef}
-        className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-center'
+        className='absolute hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-center'
       >
         <h1 className='text-white text-6xl drop-shadow-[0_0_3px_rgba(255,255,255,1)]'>JAY L</h1>
         <p className='text-xl text-yellow-400'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum ullam illum quasi repellendus itaque in.</p>
