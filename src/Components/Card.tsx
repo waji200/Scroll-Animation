@@ -1,9 +1,11 @@
+import demoImage from '../assets/images/demo-1.png'
+
 function Cards() {
   return (
     
   <div className="max-w-sm">
       <a href="#">
-          <img className="rounded-t-lg" src="../assets/images/demo-1.jpg" alt="" />
+          <img className="rounded-t-lg" src={demoImage} alt="" />
       </a>
       <div className="p-5">
           <a href="#">
