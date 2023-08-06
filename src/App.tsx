@@ -25,7 +25,7 @@ function App() {
     <>
       <StickyNavbar ClassName='fixed top-0 left-0 z-50 flex justify-between backdrop-blur-md w-full' />
       <Controller>
-        <Scene duration="1000%" triggerHook="onLeave" pin>
+        <Scene duration="800%" triggerHook="onLeave" pin>
           {(progress: number) => (
             <div style={{ height: '100vh', position: 'relative' }}>
               <Video progress={progress} imageSequenceSrc={imageSequenceSrc} />

@@ -10,7 +10,23 @@ body{
   padding: 0;
   box-sizing: border-box;
   background-color: grey;
+  scroll-behavior: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
 }
+/* Hide the default scrollbar */
+body::-webkit-scrollbar {
+  width: 0; /* Set the width to match your preference */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Make the thumb transparent */
+}
+
+body::-webkit-scrollbar-track {
+  background-color: transparent; /* Make the track transparent */
+}
+
 .App {
   font-family: sans-serif;
 }
