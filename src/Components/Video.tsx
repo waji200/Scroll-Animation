@@ -58,10 +58,14 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
   useEffect(() => {
     // Show text overlay for 5 seconds when the image sequence starts
     if (textRef.current) {
-      if (progress > 50 / numFrames && progress < 90 / numFrames) {
-        gsap.to(textRef.current, { autoAlpha: 1, duration: 0.5, fontSize: '3em' });
+      if (progress > 70 / numFrames && progress < 90 / numFrames) {
+        gsap.to(textRef.current, { autoAlpha: 1, duration: 0.5, scale: '1' });
       } else {
-        gsap.to(textRef.current, { autoAlpha: 0, duration: 0.5, fontSize: '0.3em' });
+        if(progress > 90 / numFrames){
+        gsap.to(textRef.current, { autoAlpha: 0, duration: 0.5, scale: '2', });
+      } else{
+        gsap.to(textRef.current, { autoAlpha: 0, duration: 0.5, scale: '0.3' });
+      }
       }
     }
   }, [progress, numFrames]);
@@ -91,20 +95,10 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
       {/* Text Overlay */}
       <div
         ref={textRef}
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          color: 'white',
-          transform: 'translate(-50%, -50%)',
-          fontSize: '0.3em',
-          padding: '10px',
-          borderRadius: '5px',
-          pointerEvents: 'none',
-          opacity: 0,
-        }}
+        className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-center'
       >
-        <h1 >JAY L</h1>
+        <h1 className='text-white text-6xl'>JAY L</h1>
+        <p className='text-xl text-yellow-400'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum ullam illum quasi repellendus itaque in.</p>
       </div>
 
       {/* Canvas */}

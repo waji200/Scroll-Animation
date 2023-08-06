@@ -1,5 +1,6 @@
 import { Controller, Scene } from 'react-scrollmagic-r18';
 import Video from './Components/Video';
+import { StickyNavbar } from './Components/Navbar';
 
 function App() {
   // Function to generate the image sequence URLs
@@ -22,11 +23,11 @@ function App() {
 
   return (
     <>
-
+      <StickyNavbar ClassName='fixed top-0 left-0 z-50 flex justify-between backdrop-blur-md w-full' />
       <Controller>
-        <Scene duration="600%" triggerHook="onLeave" pin>
+        <Scene duration="1000%" triggerHook="onLeave" pin>
           {(progress: number) => (
-            <div className='border-2 border-red-600 border-solid' style={{ height: '100vh', position: 'relative' }}>
+            <div style={{ height: '100vh', position: 'relative' }}>
               <Video progress={progress} imageSequenceSrc={imageSequenceSrc} />
             </div>
           )}
