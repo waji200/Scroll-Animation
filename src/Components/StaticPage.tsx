@@ -1,5 +1,5 @@
 import Card from "./Card";
-import { BsArrowUpRight } from "react-icons/bs";
+// import { BsArrowUpRight } from "react-icons/bs";
 
 function StaticPage() {
   // Static pageunder the scrollable header
