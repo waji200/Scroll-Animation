@@ -1,5 +1,6 @@
-import { Controller, Scene } from 'react-scrollmagic-r18';
+import StaticPage from './Components/StaticPage'; // import the default export
 import Video from './Components/Video';
+import { Controller, Scene } from 'react-scrollmagic-r18';
 import { StickyNavbar } from './Components/Navbar';
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           )}
         </Scene>
       </Controller>
+      <StaticPage/>
     </>
   );
 }

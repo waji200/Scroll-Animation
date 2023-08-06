@@ -9,22 +9,19 @@ body{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: grey;
-  scroll-behavior: auto;
-  scrollbar-width: thin;
+  background-color: black;
+  scroll-behavior: smooth;
   scrollbar-color: transparent transparent;
 }
-/* Hide the default scrollbar */
-body::-webkit-scrollbar {
-  width: 0; /* Set the width to match your preference */
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
 }
 
-body::-webkit-scrollbar-thumb {
-  background-color: transparent; /* Make the thumb transparent */
-}
-
-body::-webkit-scrollbar-track {
-  background-color: transparent; /* Make the track transparent */
+/* Hide scrollbar for Firefox */
+* {
+  scrollbar-width: none;
 }
 
 .App {
