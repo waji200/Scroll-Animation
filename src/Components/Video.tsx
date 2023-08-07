@@ -11,6 +11,8 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
   const textRef = useRef<HTMLDivElement>(null);
   const textRef2 = useRef<HTMLDivElement>(null);
   const textRef3 = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLDivElement>(null);
+  const imgElementRef = useRef<HTMLImageElement>(null);
   const numFrames = imageSequenceSrc.length;
   const [currentImage, setCurrentImage] = useState<HTMLImageElement | null>(null);
   const [isImageLoaded, setImageLoaded] = useState(false);
@@ -111,6 +113,25 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
         gsap.to(textRef3.current, { autoAlpha: 0, duration: 0.5, translateY: 100, display: 'none' });
       }
     }
+    let animationFrame: number;
+
+    const updateScaling = () => {
+      if (imgRef.current) {
+        if (progress > 300 / numFrames && progress < 400 / numFrames) {
+          const scaleValue =
+            (progress - 300 / numFrames) * (30 / (400 / numFrames - 300 / numFrames));
+          gsap.set(imgRef.current, { autoAlpha: 1, scale: scaleValue, display: 'flex' });
+        } else {
+          gsap.set(imgRef.current, { autoAlpha: 0, scale: '0', display: 'hidden' });
+        }
+      }
+      animationFrame = requestAnimationFrame(updateScaling);
+    };
+
+    updateScaling();
+
+    return () => cancelAnimationFrame(animationFrame);
+    
   }, [progress, numFrames]);
 
   return (
@@ -138,6 +159,13 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
       >
         <p className='text-xl text-white absolute bottom-[15%] right-0 text-end translate-y-1/2 w-[40%]'>has paved his own musical path, and through years of study and experimentation, crafted a voice that both respects music traditions and explores new bounds.</p>
         <h1 className='text-white absolute top-1/3 left-[5%] text-6xl drop-shadow-[0_0_3px_rgba(255,56,46,1)]'>DARE. DISCOVERY. CREATION.</h1>
+      </div>
+      {/* Img Overlay */}
+      <div
+        ref={imgRef}
+        className='absolute w-full h-full flex justify-center items-center text-white font-bold shrink-0'
+      >
+        <img ref={imgElementRef} className='rounded-full w-32 h-32 absolute top-1/2 left-1/2' src="/project-bbc-frozen-planet-2.webp" alt="" />
       </div>
 
       {/* Canvas */}
