@@ -2,6 +2,8 @@ import StaticPage from './Components/StaticPage'; // import the default export
 import Video from './Components/Video';
 import { Controller, Scene } from 'react-scrollmagic-r18';
 import { StickyNavbar } from './Components/Navbar';
+import { Suspense } from 'react';
+import { Loader } from '@react-three/drei';
 
 function App() {
   // Function to generate the image sequence URLs
@@ -29,7 +31,9 @@ function App() {
         <Scene duration="800%" triggerHook="onLeave" pin>
           {(progress: number) => (
             <div style={{ height: '100vh', width: '`100vw', position: 'relative', padding: 0 }} >
+              <Suspense fallback={<Loader/>}>
               <Video progress={progress} imageSequenceSrc={imageSequenceSrc} />
+              </Suspense>
               <StaticPage progress={progress} imageSequenceSrc={imageSequenceSrc} />
             </div>
           )}

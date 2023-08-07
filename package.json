@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@material-tailwind/react": "^2.0.8",
+    "@react-three/drei": "^9.80.1",
     "@types/gsap": "^3.0.0",
     "@types/scrollmagic": "^2.0.3",
     "framer-motion": "^10.15.0",
