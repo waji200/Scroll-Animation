@@ -28,13 +28,13 @@ function App() {
       <Controller>
         <Scene duration="800%" triggerHook="onLeave" pin>
           {(progress: number) => (
-            <div style={{ height: '100vh', position: 'relative' }}>
+            <div style={{ height: '100vh', width: '`100vw', position: 'relative', padding: 0 }} >
               <Video progress={progress} imageSequenceSrc={imageSequenceSrc} />
+              <StaticPage progress={progress} imageSequenceSrc={imageSequenceSrc} />
             </div>
           )}
         </Scene>
       </Controller>
-      <StaticPage/>
     </>
   );
 }

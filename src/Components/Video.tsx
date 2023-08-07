@@ -10,6 +10,7 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const textRef2 = useRef<HTMLDivElement>(null);
+  const textRef3 = useRef<HTMLDivElement>(null);
   const numFrames = imageSequenceSrc.length;
   const [currentImage, setCurrentImage] = useState<HTMLImageElement | null>(null);
   const [isImageLoaded, setImageLoaded] = useState(false);
@@ -93,12 +94,21 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
       }
     }
     if (textRef2.current) {
-      if (progress > 170 / numFrames && progress < 230 / numFrames) {
+      if (progress > 170 / numFrames && progress < 220 / numFrames) {
         gsap.to(textRef2.current, { autoAlpha: 1, duration: 0.5, translateX: 0, display: 'block' });
-      } else if (progress > 230 / numFrames) {
+      } else if (progress > 220 / numFrames) {
         gsap.to(textRef2.current, { autoAlpha: 0, duration: 0.5, translateX: -100, display: 'none' });
       } else {
         gsap.to(textRef2.current, { autoAlpha: 0, duration: 0.5, translateX: 100, display: 'none' });
+      }
+    }
+    if (textRef3.current) {
+      if (progress > 230 / numFrames && progress < 270 / numFrames) {
+        gsap.to(textRef3.current, { autoAlpha: 1, duration: 0.5, translateY: 0, display: 'block' });
+      } else if (progress > 270 / numFrames) {
+        gsap.to(textRef3.current, { autoAlpha: 0, duration: 0.5, translateY: -100, display: 'none' });
+      } else {
+        gsap.to(textRef3.current, { autoAlpha: 0, duration: 0.5, translateY: 100, display: 'none' });
       }
     }
   }, [progress, numFrames]);
@@ -116,10 +126,18 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
       {/* Text Overlay */}
       <div
         ref={textRef2}
-        className='absolute hidden w-[90%] bottom-0 top-0 text-white font-bold shrink-0'
+        className='absolute hidden w-[95%] bottom-0 top-0 text-white font-bold shrink-0'
       >
         <p className='text-xl text-white absolute top-[10%] right-0 text-end translate-y-1/2 w-[30%]'>...embodies the harmony of music and psychology, adding emotional dept to narratives and fosters strong audience connections.</p>
         <h1 className='text-white absolute bottom-5 left-5 text-6xl drop-shadow-[0_0_3px_rgba(255,56,46,1)]'>Music for Flim...</h1>
+      </div>
+      {/* Text Overlay */}
+      <div
+        ref={textRef3}
+        className='absolute hidden w-[95%] bottom-0 top-0 text-white font-bold shrink-0'
+      >
+        <p className='text-xl text-white absolute bottom-[15%] right-0 text-end translate-y-1/2 w-[40%]'>has paved his own musical path, and through years of study and experimentation, crafted a voice that both respects music traditions and explores new bounds.</p>
+        <h1 className='text-white absolute top-1/3 left-[5%] text-6xl drop-shadow-[0_0_3px_rgba(255,56,46,1)]'>DARE. DISCOVERY. CREATION.</h1>
       </div>
 
       {/* Canvas */}

@@ -28,6 +28,65 @@ body{
   font-family: sans-serif;
 }
 
+.circles {
+  position: relative;
+  margin: 0 auto;
+  
+}
+
+.circle {
+  box-sizing: border-box;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 151% 128% 105% 124%/145% 120% 137% 115%;
+}
+
+.circle:nth-child(1) {
+  transform-origin: 50% calc(50% - 3.6%);
+  background: #fff;
+  animation: spin1 2s linear infinite;
+}
+
+.circle:nth-child(2) {
+  transform-origin: 50% 55.6%;
+  background: #fff;
+  animation: spin2 2s linear infinite;
+}
+
+.circle:nth-child(3) {
+  transform-origin: calc(50% + 1.6%) 50%;
+  background: #fff;
+  animation: spin3 2s linear infinite;
+}
+
+@keyframes spin1 {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin2 {
+  0% {
+    transform: rotate(-144deg);
+  }
+  100% {
+    transform: rotate(216deg);
+  }
+}
+
+@keyframes spin3 {
+  0% {
+    transform: rotate(216deg);
+  }
+  100% {
+    transform: rotate(-144deg);
+  }
+}
+
 /* .skeleton {
   background-color: rgba(240, 240, 240, 1);
   background-image: linear-gradient(

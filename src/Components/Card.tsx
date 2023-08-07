@@ -3,11 +3,11 @@ import demoImage from '../assets/images/demo-1.png'
 function Cards() {
   return (
     
-  <div className="max-w-sm">
+  <div className="max-w-xl">
       <a href="#">
-          <img className="rounded-t-lg" src={demoImage} alt="" />
+          <img className="" src={demoImage} alt="" />
       </a>
-      <div className="p-5">
+      <div className="py-5">
           <a href="#">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
           </a>
