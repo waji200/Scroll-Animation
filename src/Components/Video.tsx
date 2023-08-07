@@ -4,11 +4,9 @@ import gsap from 'gsap';
 interface VideoProps {
   progress: number;
   imageSequenceSrc: string[];
-  isImageLoaded: boolean;
-  setImageLoaded: (value: boolean) => void;
 }
 
-const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc, isImageLoaded, setImageLoaded }) => {
+const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const textRef2 = useRef<HTMLDivElement>(null);
@@ -17,7 +15,7 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc, isImageLoaded
   const imgElementRef = useRef<HTMLImageElement>(null);
   const numFrames = imageSequenceSrc.length;
   const [currentImage, setCurrentImage] = useState<HTMLImageElement | null>(null);
-  
+  const [isImageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     const preloadImages = async () => {
@@ -37,7 +35,7 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc, isImageLoaded
     };
 
     preloadImages();
-  }, [progress, numFrames, imageSequenceSrc, setImageLoaded]);
+  }, [progress, numFrames, imageSequenceSrc]);
 
   useEffect(() => {
     let animationFrameId: number;
