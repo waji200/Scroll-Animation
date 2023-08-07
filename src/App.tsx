@@ -3,7 +3,7 @@ import Video from './Components/Video';
 import { Controller, Scene } from 'react-scrollmagic-r18';
 import { StickyNavbar } from './Components/Navbar';
 import { Suspense } from 'react';
-import { Loader } from '@react-three/drei';
+import { SpinningCircles } from 'react-loading-icons';
 
 function App() {
   // Function to generate the image sequence URLs
@@ -31,15 +31,14 @@ function App() {
         <Scene duration="800%" triggerHook="onLeave" pin>
           {(progress: number) => (
             <div style={{ height: '100vh', width: '`100vw', position: 'relative', padding: 0 }} >
-              <Suspense fallback={null}>
-              <Video progress={progress} imageSequenceSrc={imageSequenceSrc} />
+              <Suspense fallback={<SpinningCircles/>}>
+                <Video progress={progress} imageSequenceSrc={imageSequenceSrc} />
               </Suspense>
               <StaticPage progress={progress} imageSequenceSrc={imageSequenceSrc} />
             </div>
           )}
         </Scene>
       </Controller>
-      <Loader/>
     </>
   );
 }
