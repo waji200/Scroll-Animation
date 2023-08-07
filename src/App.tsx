@@ -31,7 +31,7 @@ function App() {
         <Scene duration="800%" triggerHook="onLeave" pin>
           {(progress: number) => (
             <div style={{ height: '100vh', width: '`100vw', position: 'relative', padding: 0 }} >
-              <Suspense fallback={<Loader/>}>
+              <Suspense fallback={null}>
               <Video progress={progress} imageSequenceSrc={imageSequenceSrc} />
               </Suspense>
               <StaticPage progress={progress} imageSequenceSrc={imageSequenceSrc} />
@@ -39,6 +39,7 @@ function App() {
           )}
         </Scene>
       </Controller>
+      <Loader/>
     </>
   );
 }
