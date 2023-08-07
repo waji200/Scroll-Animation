@@ -2,10 +2,11 @@ import StaticPage from './Components/StaticPage'; // import the default export
 import Video from './Components/Video';
 import { Controller, Scene } from 'react-scrollmagic-r18';
 import { StickyNavbar } from './Components/Navbar';
-import { Suspense } from 'react';
 import { SpinningCircles } from 'react-loading-icons';
+import { useState } from 'react';
 
 function App() {
+  const [isImageLoaded, setImageLoaded] = useState(false);
   // Function to generate the image sequence URLs
   const generateImageSequenceSrc = (numFrames: number, prefix: string, extension: string): string[] => {
     const imageSequence = [];
@@ -31,9 +32,13 @@ function App() {
         <Scene duration="800%" triggerHook="onLeave" pin>
           {(progress: number) => (
             <div style={{ height: '100vh', width: '`100vw', position: 'relative', padding: 0 }} >
-              <Suspense fallback={<SpinningCircles/>}>
-                <Video progress={progress} imageSequenceSrc={imageSequenceSrc} />
-              </Suspense>
+                {isImageLoaded ?
+                <Video progress={progress} imageSequenceSrc={imageSequenceSrc} isImageLoaded={isImageLoaded} setImageLoaded={setImageLoaded} />
+                :
+                <div className='h-screen w-screen flex justify-center items-center'>
+                <SpinningCircles className='h-20 w-20'/>
+                </div>
+                }
               <StaticPage progress={progress} imageSequenceSrc={imageSequenceSrc} />
             </div>
           )}
