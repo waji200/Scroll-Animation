@@ -99,7 +99,7 @@ const StaticPage: React.FC<StaticPageProps> = ({ progress, imageSequenceSrc }) =
     {/* Footer */}
 
     <footer>
-      <ul className="flex justify-end px-8 gap-8 text-white">
+      <ul className="flex justify-end py-6 px-8 gap-8 text-white">
         <li>
           <a href="#" className="flex justify-center items-center gap-2">
             <h1 className="text-2xl font-bold">Instagram</h1>
