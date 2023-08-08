@@ -13,6 +13,17 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
   const textRef3 = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLDivElement>(null);
   const imgElementRef = useRef<HTMLImageElement>(null);
+  const imgElement2Ref = useRef<HTMLImageElement>(null);
+  const imgElement3Ref = useRef<HTMLImageElement>(null);
+  const imgElement4Ref = useRef<HTMLImageElement>(null);
+  const imgElement5Ref = useRef<HTMLImageElement>(null);
+  const imgElement6Ref = useRef<HTMLImageElement>(null);
+  const imgElement7Ref = useRef<HTMLImageElement>(null);
+  const imgElement8Ref = useRef<HTMLImageElement>(null);
+  const imgElement9Ref = useRef<HTMLImageElement>(null);
+  const imgElement10Ref = useRef<HTMLImageElement>(null);
+  const imgElement11Ref = useRef<HTMLImageElement>(null);
+  const imgElement12Ref = useRef<HTMLImageElement>(null);
   const numFrames = imageSequenceSrc.length;
   const [currentImage, setCurrentImage] = useState<HTMLImageElement | null>(null);
   const [isImageLoaded, setImageLoaded] = useState(false);
@@ -119,10 +130,118 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
       if (imgRef.current) {
         if (progress > 300 / numFrames && progress < 400 / numFrames) {
           const scaleValue =
-            (progress - 300 / numFrames) * (30 / (400 / numFrames - 300 / numFrames));
+            (progress - 300 / numFrames) * (20 / (400 / numFrames - 300 / numFrames) * 0.2);
           gsap.set(imgRef.current, { autoAlpha: 1, scale: scaleValue, display: 'flex' });
         } else {
           gsap.set(imgRef.current, { autoAlpha: 0, scale: '0', display: 'hidden' });
+        }
+      }
+      if(imgElementRef.current){
+        if(progress > 302 / numFrames && progress < 400 / numFrames){
+          const translateValues =
+          (progress - 302 / numFrames) * (30 / (400 / numFrames - 302 / numFrames) * 30);
+          gsap.set(imgElementRef.current, {autoAlpha: 1, translateX: translateValues * 0.7, translateY: translateValues * 0.5, scale: translateValues * 0.005});
+        } else{
+          gsap.set(imgElementRef.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
+        }
+      }
+      if(imgElement2Ref.current){
+        if(progress > 304 / numFrames && progress < 400 / numFrames){
+          const translateValues =
+          (progress - 304 / numFrames) * (30 / (400 / numFrames - 304 / numFrames) * 25);
+          gsap.set(imgElement2Ref.current, {autoAlpha: 1, translateX: translateValues * 0.8, translateY: -translateValues * 0.5, scale: translateValues * 0.005});
+        } else{
+          gsap.set(imgElement2Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
+        }
+      }
+      if(imgElement3Ref.current){
+        if(progress > 306 / numFrames && progress < 400 / numFrames){
+          const translateValues =
+          (progress - 306 / numFrames) * (30 / (400 / numFrames - 306 / numFrames) * 25);
+          gsap.set(imgElement3Ref.current, {autoAlpha: 1, translateX: -translateValues * 0.9, translateY: -translateValues * 0.5, scale: translateValues * 0.005});
+        } else{
+          gsap.set(imgElement3Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
+        }
+      }
+      if(imgElement4Ref.current){
+        if(progress > 308 / numFrames && progress < 400 / numFrames){
+          const translateValues =
+          (progress - 308 / numFrames) * (30 / (400 / numFrames - 308 / numFrames) * 25);
+          gsap.set(imgElement4Ref.current, {autoAlpha: 1, translateX: -translateValues, translateY: translateValues * 0.5, scale: translateValues * 0.005});
+        } else{
+          gsap.set(imgElement4Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
+        }
+      }
+      if(imgElement5Ref.current){
+        if(progress > 312 / numFrames && progress < 400 / numFrames){
+          const translateValues =
+          (progress - 312 / numFrames) * (30 / (400 / numFrames - 312 / numFrames) * 22);
+          gsap.set(imgElement5Ref.current, {autoAlpha: 1, translateX: translateValues * 0.3, translateY: -translateValues * 0.8, scale: translateValues * 0.003});
+        } else{
+          gsap.set(imgElement5Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
+        }
+      }
+      if(imgElement6Ref.current){
+        if(progress > 314 / numFrames && progress < 400 / numFrames){
+          const translateValues =
+          (progress - 314 / numFrames) * (30 / (400 / numFrames - 314 / numFrames) * 22);
+          gsap.set(imgElement6Ref.current, {autoAlpha: 1, translateX: translateValues * 0.6, translateY: -translateValues * 0.4, scale: translateValues * 0.003});
+        } else{
+          gsap.set(imgElement6Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
+        }
+      }
+      if(imgElement7Ref.current){
+        if(progress > 316 / numFrames && progress < 400 / numFrames){
+          const translateValues =
+          (progress - 316 / numFrames) * (30 / (400 / numFrames - 316 / numFrames) * 22);
+          gsap.set(imgElement7Ref.current, {autoAlpha: 1, translateX: -translateValues * 0.6, translateY: translateValues * 0.3, scale: translateValues * 0.003});
+        } else{
+          gsap.set(imgElement7Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
+        }
+      }
+      if(imgElement8Ref.current){
+        if(progress > 318 / numFrames && progress < 400 / numFrames){
+          const translateValues =
+          (progress - 318 / numFrames) * (30 / (400 / numFrames - 318 / numFrames) * 22);
+          gsap.set(imgElement8Ref.current, {autoAlpha: 1, translateX: -translateValues * 0.5, translateY: -translateValues * 0.3, scale: translateValues * 0.003});
+        } else{
+          gsap.set(imgElement8Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
+        }
+      }
+      if(imgElement9Ref.current){
+        if(progress > 324 / numFrames && progress < 400 / numFrames){
+          const translateValues =
+          (progress - 324 / numFrames) * (30 / (400 / numFrames - 324 / numFrames) * 19);
+          gsap.set(imgElement9Ref.current, {autoAlpha: 1, translateX: -translateValues * 0.13, translateY: -translateValues * 0.3, scale: translateValues * 0.002});
+        } else{
+          gsap.set(imgElement9Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
+        }
+      }
+      if(imgElement10Ref.current){
+        if(progress > 326 / numFrames && progress < 400 / numFrames){
+          const translateValues =
+          (progress - 326 / numFrames) * (30 / (400 / numFrames - 326 / numFrames) * 19);
+          gsap.set(imgElement10Ref.current, {autoAlpha: 1, translateX: translateValues * 0.5, translateY: -translateValues * 0.2, scale: translateValues * 0.002});
+        } else{
+          gsap.set(imgElement10Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
+        }
+      }
+      if(imgElement11Ref.current){
+        if(progress > 328 / numFrames && progress < 400 / numFrames){
+          const translateValues =
+          (progress - 328 / numFrames) * (30 / (400 / numFrames - 328 / numFrames) * 19);
+          gsap.set(imgElement11Ref.current, {autoAlpha: 1, translateX: -translateValues * 0.11, translateY: translateValues * 0.2, scale: translateValues * 0.002});
+        } else{
+          gsap.set(imgElement11Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
+        }
+      }
+      if(imgElement12Ref.current){
+        if(progress > 330 / numFrames && progress < 400 / numFrames){
+          const translateValues =
+          (progress - 330 / numFrames) * (30 / (400 / numFrames - 330 / numFrames) * 19);
+          gsap.set(imgElement12Ref.current, {autoAlpha: 1, translateX: -translateValues * 0.5, translateY: -translateValues * 0.2, scale: translateValues * 0.002});
+        } else{
+          gsap.set(imgElement12Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
         }
       }
       animationFrame = requestAnimationFrame(updateScaling);
@@ -165,7 +284,18 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
         ref={imgRef}
         className='absolute w-full h-full flex justify-center items-center text-white font-bold shrink-0'
       >
-        <img ref={imgElementRef} className='rounded-full w-32 h-32 absolute top-1/2 left-1/2' src="/project-bbc-frozen-planet-2.webp" alt="" />
+        <img ref={imgElementRef} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]' src="/project-bbc-frozen-planet-2.webp" alt="" />
+        <img ref={imgElement2Ref} className='rounded-full w-32 h-32 absolute top-[45%] left-[45%] z-[11]' src="/project-cnn-this-morning.webp" alt="" />
+        <img ref={imgElement3Ref} className='rounded-full w-32 h-32 absolute top-[45%] right-[45%] z-[10]' src="/project-primate.webp" alt="" />
+        <img ref={imgElement4Ref} className='rounded-full w-32 h-32 absolute bottom-[40%] right-[45%] z-[9]' src="/project-planet-earth.webp" alt="" />
+        <img ref={imgElement5Ref} className='rounded-full w-32 h-32 absolute top-[50%] left-[45%] z-[8]' src="/project-jeopardy.webp" alt="" />
+        <img ref={imgElement6Ref} className='rounded-full w-32 h-32 absolute top-[55%] left-[45%] z-[7]' src="/project-being-the-queen.webp" alt="" />
+        <img ref={imgElement7Ref} className='rounded-full w-32 h-32 absolute top-[40%] right-[43%] z-[6]' src="/project-frozen-planet-2.webp" alt="" />
+        <img ref={imgElement8Ref} className='rounded-full w-32 h-32 absolute bottom-[40%] right-[45%] z-[5]' src="/project-minecraft-legends.webp" alt="" />
+        <img ref={imgElement9Ref} className='rounded-full w-32 h-32 absolute top-[45%] left-[50%] z-[4]' src="/project-flooded-tombs.webp" alt="" />
+        <img ref={imgElement10Ref} className='rounded-full w-32 h-32 absolute top-[45%] left-[40%] z-[3]' src="/project-national-geographic.webp" alt="" />
+        <img ref={imgElement11Ref} className='rounded-full w-32 h-32 absolute bottom-[45%] right-[43%] z-[2]' src="/project-roman-empire.webp" alt="" />
+        <img ref={imgElement12Ref} className='rounded-full w-32 h-32 absolute top-[45%] right-[41%] z-[1]' src="/project-superbowl-lv.webp" alt="" />
       </div>
 
       {/* Canvas */}

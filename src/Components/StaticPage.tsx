@@ -25,7 +25,7 @@ const StaticPage: React.FC<StaticPageProps> = ({ progress, imageSequenceSrc }) =
 
   // Static pageunder the scrollable header
   return (
-    <div className="w-full relative h-full">
+    <div className="w-full relative h-full p-6">
 
     {/* Award Section */}
     <div ref={awardRef} className="flex justify-center items-center gap-6 p-12 mx-auto text-white text-center">
