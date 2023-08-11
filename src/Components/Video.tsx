@@ -46,6 +46,13 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
     };
 
     preloadImages();
+
+   // Scroll to progress === 70 when the component loads
+  if (progress < 70 / numFrames) {
+    window.scrollTo({top:1500,
+    behavior: 'smooth',
+    })
+  }
   }, [progress, numFrames, imageSequenceSrc]);
 
   useEffect(() => {
