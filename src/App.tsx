@@ -16,7 +16,7 @@ function App() {
   };
 
   // Generate the array of image URLs
-  const numFrames = 400;
+  const numFrames = 553;
   const prefix = '/hero_'; // Replace with your actual image file prefix
   const extension = 'webp'; // Replace with your actual image file extension
   const imageSequenceSrc = generateImageSequenceSrc(numFrames, prefix, extension);
@@ -30,9 +30,9 @@ function App() {
           {(progress: number) => (
             <div style={{ height: '100vh', width: '`100vw', position: 'relative', padding: 0 }} >
 
-                <Video progress={progress} imageSequenceSrc={imageSequenceSrc} />
+                <Video progress={progress} imageSequence={imageSequenceSrc} />
 
-              <StaticPage progress={progress} imageSequenceSrc={imageSequenceSrc} />
+              <StaticPage progress={progress} imageSequence={imageSequenceSrc} />
             </div>
           )}
         </Scene>

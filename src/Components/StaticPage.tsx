@@ -4,17 +4,17 @@ import Card from "./Card";
 import gsap from "gsap";
 interface StaticPageProps {
   progress: number;
-  imageSequenceSrc: string[];
+  imageSequence: string[];
 }
 
-const StaticPage: React.FC<StaticPageProps> = ({ progress, imageSequenceSrc }) => {
+const StaticPage: React.FC<StaticPageProps> = ({ progress, imageSequence }) => {
 
   const awardRef = useRef<HTMLDivElement | null>(null)
-  const numFrames = imageSequenceSrc.length
+  const numFrames = imageSequence.length
 
   useEffect(() => {
     if(awardRef){
-      if(progress === 400 / numFrames){
+      if(progress === 553 / numFrames){
         gsap.to(awardRef.current, { autoAlpha: 1, translateY: -100, opacity: 1, duration: 2 })
       } else {
         gsap.to(awardRef.current, { autoAlpha: 0, translateY: 0, opacity: 0, duration: 1 })
