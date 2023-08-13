@@ -49,31 +49,34 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
 
       setCurrentImage(images[Math.floor(progress * (numFrames - 1))]);
       setImageLoaded(true);
+      if(progress < 5 / numFrames){
+        gsap.to(window, { scrollTo: { y: 900, autoKill: false }, duration: 1 })
+      }
     };
 
     preloadImages();
 
-    let animationFrame: number;
+    // let animationFrame: number;
 
-    const initialLoadAnimation = () => {
+    // const initialLoadAnimation = () => {
 
 //     // Scroll to progress === 70 when the component loads
-  if (progress < 5 / numFrames) {
-    const targetScroll = 1500;
+//   if (progress < 5 / numFrames) {
+//     const targetScroll = 1500;
 
-    gsap.set(window, 
-      {
-      scrollTo: { y: targetScroll },
-      duration: 3,
-      scrollBehavior: 'smooth',    }
-    );
-  }
-  animationFrame = requestAnimationFrame(initialLoadAnimation)
-}
+//     gsap.set(window, 
+//       {
+//       scrollTo: { y: targetScroll },
+//       duration: 3,
+//       scrollBehavior: 'smooth',    }
+//     );
+//   }
+//   animationFrame = requestAnimationFrame(initialLoadAnimation)
+// }
 
-  initialLoadAnimation();
+//   initialLoadAnimation();
 
-  return () => cancelAnimationFrame(animationFrame)
+//   return () => cancelAnimationFrame(animationFrame)
 
   }, [progress, numFrames, imageSequence]);
 
