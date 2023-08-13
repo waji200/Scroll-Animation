@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/all';
-import AnimationVideo from '/AnimationVideo.webm'
-import AnimationVideoMp4 from '/animationmp4.mp4'
+// import AnimationVideo from '/AnimationVideo.webm'
+// import AnimationVideoMp4 from '/animationmp4.mp4'
 
 interface VideoProps {
   progress: number;
@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollToPlugin);
 const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   // TODO: Below is the video ref to be combined with html video element
-  const videoRef = useRef<HTMLVideoElement | null>(null)
+  // const videoRef = useRef<HTMLVideoElement | null>(null)
   const textRef = useRef<HTMLDivElement>(null);
   const textRef2 = useRef<HTMLDivElement>(null);
   const textRef3 = useRef<HTMLDivElement>(null);
