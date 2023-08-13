@@ -99,43 +99,41 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
 
 
 
-  useEffect(() => {
-    let animationFrameId: number;
+let animationFrameId: number;
 
-    const updateCanvas = () => {
-      if (isImageLoaded && currentImage) {
-        const canvas = canvasRef.current;
-        const context = canvas?.getContext('2d');
+const updateCanvas = () => {
+  if (isImageLoaded && currentImage) {
+    const canvas = canvasRef.current;
+    const context = canvas?.getContext('2d');
 
-        if (context) {
-          const canvasWidth = canvas!.parentElement!.clientWidth;
-          const canvasHeight = canvas!.parentElement!.clientHeight;
+    if (context) {
+      const canvasWidth = canvas!.parentElement!.clientWidth;
+      const canvasHeight = canvas!.parentElement!.clientHeight;
 
-          context.clearRect(0, 0, canvasWidth, canvasHeight);
+      context.clearRect(0, 0, canvasWidth, canvasHeight);
 
-          const imageAspectRatio = currentImage.width / currentImage.height;
-          const canvasAspectRatio = canvasWidth / canvasHeight;
+      const imageAspectRatio = currentImage.width / currentImage.height;
+      const canvasAspectRatio = canvasWidth / canvasHeight;
 
-          let drawWidth = currentImage.width;
-          let drawHeight = currentImage.height;
+      let drawWidth = currentImage.width;
+      let drawHeight = currentImage.height;
 
-          if (imageAspectRatio > canvasAspectRatio) {
-            drawHeight = canvasHeight;
-            drawWidth = canvasHeight * imageAspectRatio;
-          } else {
-            drawWidth = canvasWidth;
-            drawHeight = canvasWidth / imageAspectRatio;
-          }
-
-          const offsetX = (canvasWidth - drawWidth) / 2;
-          const offsetY = (canvasHeight - drawHeight) / 2;
-
-          context.drawImage(currentImage, offsetX, offsetY, drawWidth, drawHeight);
-        }
+      if (imageAspectRatio > canvasAspectRatio) {
+        drawHeight = canvasHeight;
+        drawWidth = canvasHeight * imageAspectRatio;
+      } else {
+        drawWidth = canvasWidth;
+        drawHeight = canvasWidth / imageAspectRatio;
       }
 
-      animationFrameId = requestAnimationFrame(updateCanvas);
-    };
+      const offsetX = (canvasWidth - drawWidth) / 2;
+      const offsetY = (canvasHeight - drawHeight) / 2;
+
+      context.drawImage(currentImage, offsetX, offsetY, drawWidth, drawHeight); 
+    }
+  }
+};
+  useEffect(() => {
 
     if (isImageLoaded && currentImage) {
       animationFrameId = requestAnimationFrame(updateCanvas);
@@ -182,7 +180,7 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
         if (progress > 300 / numFrames && progress < 553 / numFrames) {
           const scaleValue =
             (progress - 300 / numFrames) * (20 / (553 / numFrames - 300 / numFrames) * 0.2);
-          gsap.set(imgRef.current, { autoAlpha: 1, scale: scaleValue, display: 'flex' });
+          gsap.set(imgRef.current, { autoAlpha: 1, scale: scaleValue * 2, display: 'flex' });
         } else {
           gsap.set(imgRef.current, { autoAlpha: 0, scale: '0', display: 'hidden' });
         }
@@ -335,18 +333,79 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
         ref={imgRef}
         className='absolute w-full h-full flex justify-center items-center text-white font-bold shrink-0'
       >
-        <img ref={imgElementRef} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]' src="/project-bbc-frozen-planet-2.webp" alt="" />
-        <img ref={imgElement2Ref} className='rounded-full w-32 h-32 absolute top-[45%] left-[45%] z-[11]' src="/project-cnn-this-morning.webp" alt="" />
-        <img ref={imgElement3Ref} className='rounded-full w-32 h-32 absolute top-[45%] right-[45%] z-[10]' src="/project-primate.webp" alt="" />
-        <img ref={imgElement4Ref} className='rounded-full w-32 h-32 absolute bottom-[40%] right-[45%] z-[9]' src="/project-planet-earth.webp" alt="" />
-        <img ref={imgElement5Ref} className='rounded-full w-32 h-32 absolute top-[50%] left-[45%] z-[8]' src="/project-jeopardy.webp" alt="" />
-        <img ref={imgElement6Ref} className='rounded-full w-32 h-32 absolute top-[55%] left-[45%] z-[7]' src="/project-being-the-queen.webp" alt="" />
-        <img ref={imgElement7Ref} className='rounded-full w-32 h-32 absolute top-[40%] right-[43%] z-[6]' src="/project-frozen-planet-2.webp" alt="" />
-        <img ref={imgElement8Ref} className='rounded-full w-32 h-32 absolute bottom-[40%] right-[45%] z-[5]' src="/project-minecraft-legends.webp" alt="" />
-        <img ref={imgElement9Ref} className='rounded-full w-32 h-32 absolute top-[45%] left-[50%] z-[4]' src="/project-flooded-tombs.webp" alt="" />
-        <img ref={imgElement10Ref} className='rounded-full w-32 h-32 absolute top-[45%] left-[40%] z-[3]' src="/project-national-geographic.webp" alt="" />
-        <img ref={imgElement11Ref} className='rounded-full w-32 h-32 absolute bottom-[45%] right-[43%] z-[2]' src="/project-roman-empire.webp" alt="" />
-        <img ref={imgElement12Ref} className='rounded-full w-32 h-32 absolute top-[45%] right-[41%] z-[1]' src="/project-superbowl-lv.webp" alt="" />
+        <div ref={imgElementRef} className={`rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12] overflow-clip cursor-pointer bg-[url('/project-bbc-frozen-planet-2.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
+  </div>
+</div>
+<div ref={imgElement2Ref} className={`rounded-full w-32 h-32 absolute top-[45%] left-[45%] z-[11] overflow-clip cursor-pointer bg-[url('/project-cnn-this-morning.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
+  </div>
+</div>
+<div ref={imgElement3Ref} className={`rounded-full w-32 h-32 absolute top-[45%] right-[45%] z-[10] overflow-clip cursor-pointer bg-[url('/project-primate.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
+  </div>
+</div>
+<div ref={imgElement4Ref} className={`rounded-full w-32 h-32 absolute bottom-[40%] right-[45%] z-[9] overflow-clip cursor-pointer bg-[url('/project-planet-earth.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
+  </div>
+</div>
+<div ref={imgElement5Ref} className={`rounded-full w-32 h-32 absolute top-[50%] left-[45%] z-[8] overflow-clip cursor-pointer bg-[url('/project-jeopardy.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
+  </div>
+</div>
+<div ref={imgElement6Ref} className={`rounded-full w-32 h-32 absolute top-[55%] left-[45%] z-[7] overflow-clip cursor-pointer bg-[url('/project-being-the-queen.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
+  </div>
+</div>
+<div ref={imgElement7Ref} className={`rounded-full w-32 h-32 absolute top-[40%] right-[43%] z-[6] overflow-clip cursor-pointer bg-[url('/project-frozen-planet-2.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
+  </div>
+</div>
+<div ref={imgElement8Ref} className={`rounded-full w-32 h-32 absolute bottom-[40%] right-[45%] z-[5] overflow-clip cursor-pointer bg-[url('/project-minecraft-legends.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
+  </div>
+</div>
+<div ref={imgElement9Ref} className={`rounded-full w-32 h-32 absolute top-[45%] left-[50%] z-[4] overflow-clip cursor-pointer bg-[url('/project-flooded-tombs.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
+  </div>
+</div>
+<div ref={imgElement10Ref} className={`rounded-full w-32 h-32 absolute top-[45%] left-[40%] z-[3] overflow-clip cursor-pointer bg-[url('/project-national-geographic.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
+  </div>
+</div>
+<div ref={imgElement11Ref} className={`rounded-full w-32 h-32 absolute bottom-[45%] right-[43%] z-[2] overflow-clip cursor-pointer bg-[url('/project-roman-empire.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
+  </div>
+</div>
+<div ref={imgElement12Ref} className={`rounded-full w-32 h-32 absolute top-[45%] right-[41%] z-[1] overflow-clip cursor-pointer bg-[url('/project-superbowl-lv.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
+  </div>
+</div>
+
       </div>
 
       {/* Canvas */}

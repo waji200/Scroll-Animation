@@ -29,7 +29,7 @@ const StaticPage: React.FC<StaticPageProps> = ({ progress, imageSequence }) => {
 
   // Static pageunder the scrollable header
   return (
-    <div className="w-full relative h-full p-6">
+    <div className="w-full relative h-full">
 
     {/* Award Section */}
     <div ref={awardRef} className="flex justify-center items-center gap-6 p-12 mx-auto text-white text-center">
@@ -51,8 +51,8 @@ const StaticPage: React.FC<StaticPageProps> = ({ progress, imageSequence }) => {
     </div>
 
     {/* Exlore section with buttons */}
-    <div className="w-full relative h-[30rem] flex">
-        <div className="flex w-[60%] m-auto justify-center items-center relative p-16 gap-10">
+    <div className="w-full relative h-[30rem] flex justify-center items-center overflow-hidden">
+        <div className="grid grid-cols-2 lg:grid-cols-4 lg:w-[60%] m-auto justify-center items-center relative p-16 gap-10">
           <div className="w-[25%]">
           <div className="relative h-[25vmin] w-[25vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
             <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
@@ -73,13 +73,15 @@ const StaticPage: React.FC<StaticPageProps> = ({ progress, imageSequence }) => {
           </div>
           </div>
           <div className="w-[25%]">
-          <div className="relative h-[15vmin] w-[15vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
-            <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
-            <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">News</a>
+              <div className="relative h-[15vmin] w-[15vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
+                <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
+                <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">News</a>
+              </div>
+            </div>
           </div>
+          <div className='-z-[2] h-full absolute top-0 w-screen text-center font-bold text-gray-700 opacity-50 tracking-wide uppercase flex justify-center items-center'>
+            <h1 className="origin-center text-[25vw]">Explore</h1>  
           </div>
-        </div>
-          <h1 className='-z-20 absolute left-0 right-0 -bottom-1/2 -translate-y-1/2 w-full text-center font-bold text-[22vw] text-gray-700 opacity-50 tracking-wide uppercase'>Explore</h1>  
         </div>
 
 
