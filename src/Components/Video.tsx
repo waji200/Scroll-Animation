@@ -328,23 +328,56 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
         <h1 className='text-white absolute top-1/3 left-[5%] text-6xl drop-shadow-[0_0_3px_rgba(255,56,46,1)]'>DARE. DISCOVERY. CREATION.</h1>
       </div>
       {/* Img Overlay */}
-      <div
-        ref={imgRef}
-        className='absolute w-full h-full flex justify-center items-center text-white font-bold shrink-0'
-      >
-        <img ref={imgElementRef} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]' src="/project-bbc-frozen-planet-2.webp" alt="" />
-        <img ref={imgElement2Ref} className='rounded-full w-32 h-32 absolute top-[45%] left-[45%] z-[11]' src="/project-cnn-this-morning.webp" alt="" />
-        <img ref={imgElement3Ref} className='rounded-full w-32 h-32 absolute top-[45%] right-[45%] z-[10]' src="/project-primate.webp" alt="" />
-        <img ref={imgElement4Ref} className='rounded-full w-32 h-32 absolute bottom-[40%] right-[45%] z-[9]' src="/project-planet-earth.webp" alt="" />
-        <img ref={imgElement5Ref} className='rounded-full w-32 h-32 absolute top-[50%] left-[45%] z-[8]' src="/project-jeopardy.webp" alt="" />
-        <img ref={imgElement6Ref} className='rounded-full w-32 h-32 absolute top-[55%] left-[45%] z-[7]' src="/project-being-the-queen.webp" alt="" />
-        <img ref={imgElement7Ref} className='rounded-full w-32 h-32 absolute top-[40%] right-[43%] z-[6]' src="/project-frozen-planet-2.webp" alt="" />
-        <img ref={imgElement8Ref} className='rounded-full w-32 h-32 absolute bottom-[40%] right-[45%] z-[5]' src="/project-minecraft-legends.webp" alt="" />
-        <img ref={imgElement9Ref} className='rounded-full w-32 h-32 absolute top-[45%] left-[50%] z-[4]' src="/project-flooded-tombs.webp" alt="" />
-        <img ref={imgElement10Ref} className='rounded-full w-32 h-32 absolute top-[45%] left-[40%] z-[3]' src="/project-national-geographic.webp" alt="" />
-        <img ref={imgElement11Ref} className='rounded-full w-32 h-32 absolute bottom-[45%] right-[43%] z-[2]' src="/project-roman-empire.webp" alt="" />
-        <img ref={imgElement12Ref} className='rounded-full w-32 h-32 absolute top-[45%] right-[41%] z-[1]' src="/project-superbowl-lv.webp" alt="" />
-      </div>
+      
+  <div ref={imgElementRef} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
+    <img  className='rounded-full w-32 h-32' src="/project-bbc-frozen-planet-2.webp" alt="" />
+    <div className='relative top-0 w-full h-full mx-auto z-20'>
+      <p className='font-bold'>Project Frozen Planet 2</p>
+      <img className='rounded-full w-32 h-32 z-0' src="/project-frozen-planet-2.webp" alt="" />
+    </div>
+  </div>
+  <div ref={imgElement2Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
+    <img className='rounded-full w-32 h-32' src="/project-cnn-this-morning.webp" alt="" />
+    
+  </div>
+  <div ref={imgElement3Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
+    <img className='rounded-full w-32 h-32' src="/project-primate.webp" alt="" />
+    
+  </div>
+  <div ref={imgElement4Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
+    <img className='rounded-full w-32 h-32' src="/project-planet-earth.webp" alt="" />
+    
+  </div>
+  <div ref={imgElement5Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
+    <img className='rounded-full w-32 h-32' src="/project-jeopardy.webp" alt="" />
+    
+  </div>
+  <div ref={imgElement6Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
+    <img className='rounded-full w-32 h-32' src="/project-being-the-queen.webp" alt="" />
+    
+  </div>
+  <div ref={imgElement7Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
+  </div>
+  <div ref={imgElement8Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
+    <img className='rounded-full w-32 h-32' src="/project-minecraft-legends.webp" alt="" />
+    
+  </div>
+  <div ref={imgElement9Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
+    <img className='rounded-full w-32 h-32' src="/project-flooded-tombs.webp" alt="" />
+    
+  </div>
+  <div ref={imgElement10Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
+    <img className='rounded-full w-32 h-32' src="/project-national-geographic.webp" alt="" />
+    
+  </div>
+  <div ref={imgElement11Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
+    <img className='rounded-full w-32 h-32' src="/project-roman-empire.webp" alt="" />
+    
+  </div>
+  <div ref={imgElement12Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
+    <img className='rounded-full w-32 h-32' src="/project-superbowl-lv.webp" alt="" />
+    
+  </div>
 
       {/* Canvas */}
       <canvas
