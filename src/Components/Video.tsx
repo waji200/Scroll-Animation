@@ -1,13 +1,19 @@
 import React, { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
+import { ScrollToPlugin } from 'gsap/all';
+import AnimationVideo from '/AnimationVideo.webm'
+import AnimationVideoMp4 from '/animationmp4.mp4'
 
 interface VideoProps {
   progress: number;
-  imageSequenceSrc: string[];
+  imageSequence: string[];
 }
 
-const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
+gsap.registerPlugin(ScrollToPlugin);
+const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  // TODO: Below is the video ref to be combined with html video element
+  const videoRef = useRef<HTMLVideoElement | null>(null)
   const textRef = useRef<HTMLDivElement>(null);
   const textRef2 = useRef<HTMLDivElement>(null);
   const textRef3 = useRef<HTMLDivElement>(null);
@@ -24,14 +30,14 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
   const imgElement10Ref = useRef<HTMLImageElement>(null);
   const imgElement11Ref = useRef<HTMLImageElement>(null);
   const imgElement12Ref = useRef<HTMLImageElement>(null);
-  const numFrames = imageSequenceSrc.length;
+  const numFrames = imageSequence.length;
   const [currentImage, setCurrentImage] = useState<HTMLImageElement | null>(null);
   const [isImageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     const preloadImages = async () => {
       const images = await Promise.all(
-        imageSequenceSrc.map((src) => {
+        imageSequence.map((src) => {
           return new Promise<HTMLImageElement>((resolve, reject) => {
             const img = new Image();
             img.onload = () => resolve(img);
@@ -47,13 +53,48 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
 
     preloadImages();
 
-   // Scroll to progress === 70 when the component loads
-  if (progress < 70 / numFrames) {
-    window.scrollTo({top:1500,
-    behavior: 'smooth',
-    })
+    let animationFrame: number;
+
+    const initialLoadAnimation = () => {
+
+//     // Scroll to progress === 70 when the component loads
+  if (progress < 5 / numFrames) {
+    const targetScroll = 1500;
+
+    gsap.set(window, 
+      {
+      scrollTo: { y: targetScroll },
+      duration: 3,
+      scrollBehavior: 'smooth',    }
+    );
   }
-  }, [progress, numFrames, imageSequenceSrc]);
+  animationFrame = requestAnimationFrame(initialLoadAnimation)
+}
+
+  initialLoadAnimation();
+
+  return () => cancelAnimationFrame(animationFrame)
+
+  }, [progress, numFrames, imageSequence]);
+
+
+// TODO: This is the video code
+// useEffect(() => {
+
+//     if (canvasRef.current) {
+//       const newTime = progress * canvasRef.current.duration;
+//       if(!newTime) return;
+//       canvasRef.current.currentTime = newTime;
+//       console.log(newTime);
+    
+//     }
+
+
+// }, [progress]);
+
+
+
+
 
   useEffect(() => {
     let animationFrameId: number;
@@ -310,8 +351,17 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequenceSrc }) => {
         ref={canvasRef}
         width={canvasRef.current?.parentElement?.clientWidth} // Adjust the canvas size as needed
         height={canvasRef.current?.parentElement?.clientHeight}
-        // style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-      />
+        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+      >
+        </canvas>
+
+        {/* Video Component */}
+        {/* <video src='/AnimationVideo.webm'
+        ref={videoRef} 
+        width={canvasRef.current?.parentElement?.clientWidth} // Adjust the canvas size as needed
+        height={canvasRef.current?.parentElement?.clientHeight}
+        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        ></video> */}
     </div>
   );
 };
