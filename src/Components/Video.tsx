@@ -176,117 +176,117 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
 
     const updateScaling = () => {
       if (imgRef.current) {
-        if (progress > 300 / numFrames && progress < 400 / numFrames) {
+        if (progress > 300 / numFrames && progress < 553 / numFrames) {
           const scaleValue =
-            (progress - 300 / numFrames) * (20 / (400 / numFrames - 300 / numFrames) * 0.2);
+            (progress - 300 / numFrames) * (20 / (553 / numFrames - 300 / numFrames) * 0.2);
           gsap.set(imgRef.current, { autoAlpha: 1, scale: scaleValue, display: 'flex' });
         } else {
           gsap.set(imgRef.current, { autoAlpha: 0, scale: '0', display: 'hidden' });
         }
       }
       if(imgElementRef.current){
-        if(progress > 302 / numFrames && progress < 400 / numFrames){
+        if(progress > 302 / numFrames && progress < 553 / numFrames){
           const translateValues =
-          (progress - 302 / numFrames) * (30 / (400 / numFrames - 302 / numFrames) * 30);
+          (progress - 302 / numFrames) * (30 / (553 / numFrames - 302 / numFrames) * 30);
           gsap.set(imgElementRef.current, {autoAlpha: 1, translateX: translateValues * 0.7, translateY: translateValues * 0.5, scale: translateValues * 0.005});
         } else{
           gsap.set(imgElementRef.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
         }
       }
       if(imgElement2Ref.current){
-        if(progress > 304 / numFrames && progress < 400 / numFrames){
+        if(progress > 304 / numFrames && progress < 553 / numFrames){
           const translateValues =
-          (progress - 304 / numFrames) * (30 / (400 / numFrames - 304 / numFrames) * 25);
+          (progress - 304 / numFrames) * (30 / (553 / numFrames - 304 / numFrames) * 25);
           gsap.set(imgElement2Ref.current, {autoAlpha: 1, translateX: translateValues * 0.8, translateY: -translateValues * 0.5, scale: translateValues * 0.005});
         } else{
           gsap.set(imgElement2Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
         }
       }
       if(imgElement3Ref.current){
-        if(progress > 306 / numFrames && progress < 400 / numFrames){
+        if(progress > 306 / numFrames && progress < 553 / numFrames){
           const translateValues =
-          (progress - 306 / numFrames) * (30 / (400 / numFrames - 306 / numFrames) * 25);
+          (progress - 306 / numFrames) * (30 / (553 / numFrames - 306 / numFrames) * 25);
           gsap.set(imgElement3Ref.current, {autoAlpha: 1, translateX: -translateValues * 0.9, translateY: -translateValues * 0.5, scale: translateValues * 0.005});
         } else{
           gsap.set(imgElement3Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
         }
       }
       if(imgElement4Ref.current){
-        if(progress > 308 / numFrames && progress < 400 / numFrames){
+        if(progress > 308 / numFrames && progress < 553 / numFrames){
           const translateValues =
-          (progress - 308 / numFrames) * (30 / (400 / numFrames - 308 / numFrames) * 25);
+          (progress - 308 / numFrames) * (30 / (553 / numFrames - 308 / numFrames) * 25);
           gsap.set(imgElement4Ref.current, {autoAlpha: 1, translateX: -translateValues, translateY: translateValues * 0.5, scale: translateValues * 0.005});
         } else{
           gsap.set(imgElement4Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
         }
       }
       if(imgElement5Ref.current){
-        if(progress > 312 / numFrames && progress < 400 / numFrames){
+        if(progress > 312 / numFrames && progress < 553 / numFrames){
           const translateValues =
-          (progress - 312 / numFrames) * (30 / (400 / numFrames - 312 / numFrames) * 22);
+          (progress - 312 / numFrames) * (30 / (553 / numFrames - 312 / numFrames) * 22);
           gsap.set(imgElement5Ref.current, {autoAlpha: 1, translateX: translateValues * 0.3, translateY: -translateValues * 0.8, scale: translateValues * 0.003});
         } else{
           gsap.set(imgElement5Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
         }
       }
       if(imgElement6Ref.current){
-        if(progress > 314 / numFrames && progress < 400 / numFrames){
+        if(progress > 314 / numFrames && progress < 553 / numFrames){
           const translateValues =
-          (progress - 314 / numFrames) * (30 / (400 / numFrames - 314 / numFrames) * 22);
+          (progress - 314 / numFrames) * (30 / (553 / numFrames - 314 / numFrames) * 22);
           gsap.set(imgElement6Ref.current, {autoAlpha: 1, translateX: translateValues * 0.6, translateY: -translateValues * 0.4, scale: translateValues * 0.003});
         } else{
           gsap.set(imgElement6Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
         }
       }
       if(imgElement7Ref.current){
-        if(progress > 316 / numFrames && progress < 400 / numFrames){
+        if(progress > 316 / numFrames && progress < 553 / numFrames){
           const translateValues =
-          (progress - 316 / numFrames) * (30 / (400 / numFrames - 316 / numFrames) * 22);
+          (progress - 316 / numFrames) * (30 / (553 / numFrames - 316 / numFrames) * 22);
           gsap.set(imgElement7Ref.current, {autoAlpha: 1, translateX: -translateValues * 0.6, translateY: translateValues * 0.3, scale: translateValues * 0.003});
         } else{
           gsap.set(imgElement7Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
         }
       }
       if(imgElement8Ref.current){
-        if(progress > 318 / numFrames && progress < 400 / numFrames){
+        if(progress > 318 / numFrames && progress < 553 / numFrames){
           const translateValues =
-          (progress - 318 / numFrames) * (30 / (400 / numFrames - 318 / numFrames) * 22);
+          (progress - 318 / numFrames) * (30 / (553 / numFrames - 318 / numFrames) * 22);
           gsap.set(imgElement8Ref.current, {autoAlpha: 1, translateX: -translateValues * 0.5, translateY: -translateValues * 0.3, scale: translateValues * 0.003});
         } else{
           gsap.set(imgElement8Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
         }
       }
       if(imgElement9Ref.current){
-        if(progress > 324 / numFrames && progress < 400 / numFrames){
+        if(progress > 324 / numFrames && progress < 553 / numFrames){
           const translateValues =
-          (progress - 324 / numFrames) * (30 / (400 / numFrames - 324 / numFrames) * 19);
+          (progress - 324 / numFrames) * (30 / (553 / numFrames - 324 / numFrames) * 19);
           gsap.set(imgElement9Ref.current, {autoAlpha: 1, translateX: -translateValues * 0.13, translateY: -translateValues * 0.3, scale: translateValues * 0.002});
         } else{
           gsap.set(imgElement9Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
         }
       }
       if(imgElement10Ref.current){
-        if(progress > 326 / numFrames && progress < 400 / numFrames){
+        if(progress > 326 / numFrames && progress < 553 / numFrames){
           const translateValues =
-          (progress - 326 / numFrames) * (30 / (400 / numFrames - 326 / numFrames) * 19);
+          (progress - 326 / numFrames) * (30 / (553 / numFrames - 326 / numFrames) * 19);
           gsap.set(imgElement10Ref.current, {autoAlpha: 1, translateX: translateValues * 0.5, translateY: -translateValues * 0.2, scale: translateValues * 0.002});
         } else{
           gsap.set(imgElement10Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
         }
       }
       if(imgElement11Ref.current){
-        if(progress > 328 / numFrames && progress < 400 / numFrames){
+        if(progress > 328 / numFrames && progress < 553 / numFrames){
           const translateValues =
-          (progress - 328 / numFrames) * (30 / (400 / numFrames - 328 / numFrames) * 19);
+          (progress - 328 / numFrames) * (30 / (553 / numFrames - 328 / numFrames) * 19);
           gsap.set(imgElement11Ref.current, {autoAlpha: 1, translateX: -translateValues * 0.11, translateY: translateValues * 0.2, scale: translateValues * 0.002});
         } else{
           gsap.set(imgElement11Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
         }
       }
       if(imgElement12Ref.current){
-        if(progress > 330 / numFrames && progress < 400 / numFrames){
+        if(progress > 330 / numFrames && progress < 553 / numFrames){
           const translateValues =
-          (progress - 330 / numFrames) * (30 / (400 / numFrames - 330 / numFrames) * 19);
+          (progress - 330 / numFrames) * (30 / (553 / numFrames - 330 / numFrames) * 19);
           gsap.set(imgElement12Ref.current, {autoAlpha: 1, translateX: -translateValues * 0.5, translateY: -translateValues * 0.2, scale: translateValues * 0.002});
         } else{
           gsap.set(imgElement12Ref.current, {autoAlpha: 1, translateX: 0, translateY: 0, scale: 0})
@@ -325,7 +325,7 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
         className='absolute hidden w-[95%] bottom-0 top-0 text-white font-bold shrink-0'
       >
         <p className='text-xl text-white absolute bottom-[15%] right-0 text-end translate-y-1/2 w-[40%]'>has paved his own musical path, and through years of study and experimentation, crafted a voice that both respects music traditions and explores new bounds.</p>
-        <h1 className='text-white absolute top-1/3 left-[5%] text-6xl drop-shadow-[0_0_3px_rgba(255,56,46,1)]'>DARE. DISCOVERY. CREATION.</h1>
+        <h1 className='text-white absolute top-[15%] left-[5%] text-6xl drop-shadow-[0_0_3px_rgba(255,56,46,1)]'>DARE. DISCOVERY. CREATION.</h1>
       </div>
       {/* Img Overlay */}
       <div

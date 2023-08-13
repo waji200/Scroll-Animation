@@ -8,7 +8,7 @@ function App() {
   const generateImageSequenceSrc = (numFrames: number, prefix: string, extension: string): string[] => {
     const imageSequence = [];
     for (let i = 0; i < numFrames; i++) {
-      const frameNumber = i.toString().padStart(5, '0');
+      const frameNumber = i.toString().padStart(3, '0');
       const imageUrl = `${prefix}${frameNumber}.${extension}`;
       imageSequence.push(imageUrl);
     }
@@ -17,7 +17,7 @@ function App() {
 
   // Generate the array of image URLs
   const numFrames = 553;
-  const prefix = '/hero_'; // Replace with your actual image file prefix
+  const prefix = '/Background_Animation'; // Replace with your actual image file prefix
   const extension = 'webp'; // Replace with your actual image file extension
   const imageSequenceSrc = generateImageSequenceSrc(numFrames, prefix, extension);
   console.log(imageSequenceSrc)

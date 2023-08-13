@@ -15,7 +15,7 @@ const StaticPage: React.FC<StaticPageProps> = ({ progress, imageSequence }) => {
   useEffect(() => {
     if(awardRef){
       if(progress === 553 / numFrames){
-        gsap.to(awardRef.current, { autoAlpha: 1, translateY: -100, opacity: 1, duration: 2 })
+        gsap.to(awardRef.current, { autoAlpha: 1, translateY: -200, opacity: 1, duration: 2 })
       } else {
         gsap.to(awardRef.current, { autoAlpha: 0, translateY: 0, opacity: 0, duration: 1 })
     }
