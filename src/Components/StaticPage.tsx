@@ -4,13 +4,12 @@ import Card from "./Card";
 import gsap from "gsap";
 interface StaticPageProps {
   progress: number;
-  imageSequence: string[];
 }
 
-const StaticPage: React.FC<StaticPageProps> = ({ progress, imageSequence }) => {
+const StaticPage: React.FC<StaticPageProps> = ({ progress }) => {
 
   const awardRef = useRef<HTMLDivElement | null>(null)
-  const numFrames = imageSequence.length
+  const numFrames = 553
 
   useEffect(() => {
     if(awardRef.current){

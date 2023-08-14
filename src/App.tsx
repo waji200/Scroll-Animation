@@ -5,22 +5,22 @@ import { StickyNavbar } from './Components/Navbar';
 
 function App() {
   // Function to generate the image sequence URLs
-  const generateImageSequenceSrc = (numFrames: number, prefix: string, extension: string): string[] => {
-    const imageSequence = [];
-    for (let i = 0; i < numFrames; i++) {
-      const frameNumber = i.toString().padStart(3, '0');
-      const imageUrl = `${prefix}${frameNumber}.${extension}`;
-      imageSequence.push(imageUrl);
-    }
-    return imageSequence;
-  };
+  // const generateImageSequenceSrc = (numFrames: number, prefix: string, extension: string): string[] => {
+  //   const imageSequence = [];
+  //   for (let i = 0; i < numFrames; i++) {
+  //     const frameNumber = i.toString().padStart(3, '0');
+  //     const imageUrl = `${prefix}${frameNumber}.${extension}`;
+  //     imageSequence.push(imageUrl);
+  //   }
+  //   return imageSequence;
+  // };
 
-  // Generate the array of image URLs
-  const numFrames = 553;
-  const prefix = '/Background_Animation'; // Replace with your actual image file prefix
-  const extension = 'webp'; // Replace with your actual image file extension
-  const imageSequenceSrc = generateImageSequenceSrc(numFrames, prefix, extension);
-  console.log(imageSequenceSrc)
+  // // Generate the array of image URLs
+  // const numFrames = 553;
+  // const prefix = '/Background_Animation'; // Replace with your actual image file prefix
+  // const extension = 'webp'; // Replace with your actual image file extension
+  // const imageSequenceSrc = generateImageSequenceSrc(numFrames, prefix, extension);
+  // console.log(imageSequenceSrc)
 
   return (
     <>
@@ -30,9 +30,9 @@ function App() {
           {(progress: number) => (
             <div style={{ height: '100vh', width: '100vw', position: 'relative', padding: 0 }} >
 
-                <Video progress={progress} imageSequence={imageSequenceSrc} />
+                <Video progress={progress} />
 
-              <StaticPage progress={progress} imageSequence={imageSequenceSrc} />
+              <StaticPage progress={progress}/>
             </div>
           )}
         </Scene>

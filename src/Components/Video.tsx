@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/all';
 // import AnimationVideo from '/AnimationVideo.webm'
@@ -6,14 +6,13 @@ import { ScrollToPlugin } from 'gsap/all';
 
 interface VideoProps {
   progress: number;
-  imageSequence: string[];
 }
 
 gsap.registerPlugin(ScrollToPlugin);
-const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
+const Video: React.FC<VideoProps> = ({ progress }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   // TODO: Below is the video ref to be combined with html video element
-  // const videoRef = useRef<HTMLVideoElement | null>(null)
+  const videoRef = useRef<HTMLVideoElement | null>(null)
   const textRef = useRef<HTMLDivElement>(null);
   const textRef2 = useRef<HTMLDivElement>(null);
   const textRef3 = useRef<HTMLDivElement>(null);
@@ -30,70 +29,54 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
   const imgElement10Ref = useRef<HTMLImageElement>(null);
   const imgElement11Ref = useRef<HTMLImageElement>(null);
   const imgElement12Ref = useRef<HTMLImageElement>(null);
-  const numFrames = imageSequence.length;
-  const [currentImage, setCurrentImage] = useState<HTMLImageElement | null>(null);
-  const [isImageLoaded, setImageLoaded] = useState(false);
+  const numFrames = 553;
+  // const [currentImage, setCurrentImage] = useState<HTMLImageElement | null>(null);
+  // const [isImageLoaded, setImageLoaded] = useState(false);
 
-  useEffect(() => {
-    const preloadImages = async () => {
-      const images = await Promise.all(
-        imageSequence.map((src) => {
-          return new Promise<HTMLImageElement>((resolve, reject) => {
-            const img = new Image();
-            img.onload = () => resolve(img);
-            img.onerror = (err) => reject(err);
-            img.src = src;
-          });
-        })
-      );
+  // useEffect(() => {
+  //   const preloadImages = async () => {
+  //     const images = await Promise.all(
+  //       imageSequence.map((src) => {
+  //         return new Promise<HTMLImageElement>((resolve, reject) => {
+  //           const img = new Image();
+  //           img.onload = () => resolve(img);
+  //           img.onerror = (err) => reject(err);
+  //           img.src = src;
+  //         });
+  //       })
+  //     );
 
-      setCurrentImage(images[Math.floor(progress * (numFrames - 1))]);
-      setImageLoaded(true);
-      if(progress < 5 / numFrames){
-        gsap.to(window, { scrollTo: { y: 3500, autoKill: false }, duration: 1 })
-      }
-    };
+  //     setCurrentImage(images[Math.floor(progress * (numFrames - 1))]);
+  //     setImageLoaded(true);
+  //     if(progress < 5 / numFrames){
+  //       gsap.to(window, { scrollTo: { y: 3500, autoKill: false }, duration: 1 })
+  //     }
+  //   };
 
-    preloadImages();
+  //   preloadImages();
 
-    // let animationFrame: number;
-
-    // const initialLoadAnimation = () => {
-
-//     // Scroll to progress === 70 when the component loads
-//   if (progress < 5 / numFrames) {
-//     const targetScroll = 1500;
-
-//     gsap.set(window, 
-//       {
-//       scrollTo: { y: targetScroll },
-//       duration: 3,
-//       scrollBehavior: 'smooth',    }
-//     );
-//   }
-//   animationFrame = requestAnimationFrame(initialLoadAnimation)
-// }
-
-//   initialLoadAnimation();
-
-//   return () => cancelAnimationFrame(animationFrame)
-
-  }, [progress, numFrames, imageSequence]);
+  // }, [progress, numFrames, imageSequence]);
 
 
 // TODO: This is the video code
-// useEffect(() => {
-
-//     if (canvasRef.current) {
-//       const newTime = progress * canvasRef.current.duration;
-//       if(!newTime) return;
-//       canvasRef.current.currentTime = newTime;
-//       console.log(newTime);
+useEffect(() => {
+  const updateVideoFrame = () => {
+    if (videoRef.current) {
+      const newTime = progress * videoRef.current.duration;
+      if(!newTime) return;
+      videoRef.current.currentTime = newTime;
+      console.log(newTime);
     
-//     }
+    }
+    animationFrameId = requestAnimationFrame(updateVideoFrame);
+  };
+  
+  updateVideoFrame()
+
+  return () => cancelAnimationFrame(animationFrameId);
 
 
-// }, [progress]);
+}, [progress]);
 
 
 
@@ -101,48 +84,48 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
 
 let animationFrameId: number;
 
-const updateCanvas = () => {
-  if (isImageLoaded && currentImage) {
-    const canvas = canvasRef.current;
-    const context = canvas?.getContext('2d');
+// const updateCanvas = () => {
+//   if (isImageLoaded && currentImage) {
+//     const canvas = canvasRef.current;
+//     const context = canvas?.getContext('2d');
 
-    if (context) {
-      const canvasWidth = canvas!.parentElement!.clientWidth;
-      const canvasHeight = canvas!.parentElement!.clientHeight;
+//     if (context) {
+//       const canvasWidth = canvas!.parentElement!.clientWidth;
+//       const canvasHeight = canvas!.parentElement!.clientHeight;
 
-      context.clearRect(0, 0, canvasWidth, canvasHeight);
+//       context.clearRect(0, 0, canvasWidth, canvasHeight);
 
-      const imageAspectRatio = currentImage.width / currentImage.height;
-      const canvasAspectRatio = canvasWidth / canvasHeight;
+//       const imageAspectRatio = currentImage.width / currentImage.height;
+//       const canvasAspectRatio = canvasWidth / canvasHeight;
 
-      let drawWidth = currentImage.width;
-      let drawHeight = currentImage.height;
+//       let drawWidth = currentImage.width;
+//       let drawHeight = currentImage.height;
 
-      if (imageAspectRatio > canvasAspectRatio) {
-        drawHeight = canvasHeight;
-        drawWidth = canvasHeight * imageAspectRatio;
-      } else {
-        drawWidth = canvasWidth;
-        drawHeight = canvasWidth / imageAspectRatio;
-      }
+//       if (imageAspectRatio > canvasAspectRatio) {
+//         drawHeight = canvasHeight;
+//         drawWidth = canvasHeight * imageAspectRatio;
+//       } else {
+//         drawWidth = canvasWidth;
+//         drawHeight = canvasWidth / imageAspectRatio;
+//       }
 
-      const offsetX = (canvasWidth - drawWidth) / 2;
-      const offsetY = (canvasHeight - drawHeight) / 2;
+//       const offsetX = (canvasWidth - drawWidth) / 2;
+//       const offsetY = (canvasHeight - drawHeight) / 2;
 
-      context.drawImage(currentImage, offsetX, offsetY, drawWidth, drawHeight); 
-    }
-  }
-};
-  useEffect(() => {
+//       context.drawImage(currentImage, offsetX, offsetY, drawWidth, drawHeight); 
+//     }
+//   }
+// };
+  // useEffect(() => {
 
-    if (isImageLoaded && currentImage) {
-      animationFrameId = requestAnimationFrame(updateCanvas);
-    }
+  //   if (isImageLoaded && currentImage) {
+  //     animationFrameId = requestAnimationFrame(updateCanvas);
+  //   }
 
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, [isImageLoaded, currentImage]);
+  //   return () => {
+  //     cancelAnimationFrame(animationFrameId);
+  //   };
+  // }, [isImageLoaded, currentImage]);
 
   useEffect(() => {
     // Show text overlay for 5 seconds when the image sequence starts
@@ -409,21 +392,21 @@ const updateCanvas = () => {
       </div>
 
       {/* Canvas */}
-      <canvas
+      {/* <canvas
         ref={canvasRef}
         width={canvasRef.current?.parentElement?.clientWidth} // Adjust the canvas size as needed
         height={canvasRef.current?.parentElement?.clientHeight}
         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
       >
-        </canvas>
+        </canvas> */}
 
         {/* Video Component */}
-        {/* <video src='/AnimationVideo.webm'
+        <video src='/AnimationVideo.webm'
         ref={videoRef} 
         width={canvasRef.current?.parentElement?.clientWidth} // Adjust the canvas size as needed
         height={canvasRef.current?.parentElement?.clientHeight}
         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        ></video> */}
+        ></video>
     </div>
   );
 };
