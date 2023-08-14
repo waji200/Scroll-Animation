@@ -22,7 +22,7 @@ const StaticPage: React.FC<StaticPageProps> = ({ progress, imageSequence }) => {
     }
     
     if(progress === 553 / numFrames){
-      gsap.to(window, { scrollTo: { y: 6100, autoKill: false }, duration: 1 })
+      gsap.to(window, { scrollTo: { y: 23500, autoKill: false }, duration: 1 })
     }
   },[progress, numFrames])
 

@@ -50,7 +50,7 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
       setCurrentImage(images[Math.floor(progress * (numFrames - 1))]);
       setImageLoaded(true);
       if(progress < 5 / numFrames){
-        gsap.to(window, { scrollTo: { y: 900, autoKill: false }, duration: 1 })
+        gsap.to(window, { scrollTo: { y: 3500, autoKill: false }, duration: 1 })
       }
     };
 
