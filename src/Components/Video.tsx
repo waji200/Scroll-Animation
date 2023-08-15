@@ -82,13 +82,13 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
 
 
 // TODO: This is the video code
-// useEffect(() => {
-
-//     if (canvasRef.current) {
-//       const newTime = progress * canvasRef.current.duration;
-//       if(!newTime) return;
-//       canvasRef.current.currentTime = newTime;
-//       console.log(newTime);
+useEffect(() => {
+  const updateVideoFrame = () => {
+    if (videoRef.current) {
+      const newTime = progress * videoRef.current.duration;
+      if(!newTime) return;
+      videoRef.current.currentTime = newTime;
+      // console.log(newTime);
     
 //     }
 

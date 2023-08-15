@@ -2,6 +2,12 @@ import { useEffect, useRef } from "react";
 import BlobAnimation from "./BlobAnimation";
 import Card from "./Card";
 import gsap from "gsap";
+import useSound from 'use-sound';
+import sound1 from "../assets/sounds/sound1.mp3";
+import sound2 from "../assets/sounds/sound2.mp3";
+import sound3 from "../assets/sounds/sound3.mp3";
+import sound4 from "../assets/sounds/sound4.mp3";
+
 interface StaticPageProps {
   progress: number;
   imageSequence: string[];
@@ -10,7 +16,11 @@ interface StaticPageProps {
 const StaticPage: React.FC<StaticPageProps> = ({ progress, imageSequence }) => {
 
   const awardRef = useRef<HTMLDivElement | null>(null)
-  const numFrames = imageSequence.length
+  const numFrames = 553
+  const [playSound1, { stopSound1 }] = useSound(sound1);
+  const [playSound2, { stopSound2 }] = useSound(sound2);
+  const [playSound3, { stopSound3 }] = useSound(sound3);
+  const [playSound4, { stopSound4 }] = useSound(sound4);
 
   useEffect(() => {
     if(awardRef.current){
@@ -28,10 +38,11 @@ const StaticPage: React.FC<StaticPageProps> = ({ progress, imageSequence }) => {
 
 
   // Static pageunder the scrollable header
+
   return (
     <div className="w-full relative h-full p-6">
 
-    {/* Award Section */}
+    {/* ~Award Section */}
     <div ref={awardRef} className="flex justify-center items-center gap-6 p-12 mx-auto text-white text-center">
       <div className="mt-20 h-80 w-60 ">
       <img  src="/awards-goldsmith.webp" alt="" />
@@ -50,77 +61,80 @@ const StaticPage: React.FC<StaticPageProps> = ({ progress, imageSequence }) => {
       </div>
     </div>
 
-    {/* Exlore section with buttons */}
-    <div className="w-full relative h-[30rem] flex">
-        <div className="flex w-[60%] m-auto justify-center items-center relative p-16 gap-10">
-          <div className="w-[25%]">
-          <div className="relative h-[25vmin] w-[25vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
-            <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
-            <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">About
+      {/* Exlore section with buttons */}
+      <div className="w-full relative h-[30rem] flex justify-center items-center overflow-hidden">
+          <div className="grid grid-cols-2 lg:grid-cols-4 lg:w-[60%] m-auto justify-center items-center relative p-16 gap-10">
+            <div className="w-[25%]" onMouseEnter={() => playSound1()} onMouseLeave={() => stopSound1()}>
+            <div className="relative h-[25vmin] w-[25vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
+              <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
+              <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">About
+              </a>
+            </div>
+            </div>
+            <div className="w-[25%]" onMouseEnter={() => playSound2()} onMouseLeave={() => stopSound2()}>
+            <div className="relative h-[15vmin] w-[15vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
+              <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
+              <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">Store</a>
+            </div>
+            </div>
+            <div className="w-[25%]" onMouseEnter={() => playSound3()} onMouseLeave={() => stopSound3()}>
+            <div className="relative h-[20vmin] w-[20vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
+              <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
+              <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">Work</a>
+            </div>
+            </div>
+            <div className="w-[25%]" onMouseEnter={() => playSound4()} onMouseLeave={() => stopSound4()}>
+                <div className="relative h-[15vmin] w-[15vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
+                  <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
+                  <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">News</a>
+                </div>
+              </div>
+            </div>
+            <div className='-z-[2] h-full absolute top-0 w-screen text-center font-bold text-gray-700 opacity-50 tracking-wide uppercase flex justify-center items-center'>
+              <h1 className="origin-center text-[25vw]">Explore</h1>  
+            </div>
+      </div>
+
+
+      {/* Card section */}
+
+      <div className="card-section flex justify-center gap-24">
+        <Card/>
+        <Card/>
+      </div>
+
+
+      {/* Leave a mesage section */}
+
+      <div className="flex justify-center items-center w-full h-[70%] relative">
+          <div className="bg-white rounded-full w-32 h-32 absolute opacity-50 blur-sm"/>
+          <div className="bg-white rounded-full w-36 h-36 absolute blur-xl opacity-50"/>
+            <h1 className="text-6xl text-white text-center">Leave A <br/>&#8599;<br/> Message</h1>
+      </div>
+
+
+      {/* Footer */}
+
+      <footer>
+        <ul className="flex justify-end py-6 px-8 gap-8 text-white">
+          <li>
+            <a href="#" className="flex justify-center items-center gap-2">
+              <h1 className="text-2xl font-bold">Instagram</h1>
             </a>
-          </div>
-          </div>
-          <div className="w-[25%]">
-          <div className="relative h-[15vmin] w-[15vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
-            <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
-            <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">Store</a>
-          </div>
-          </div>
-          <div className="w-[25%]">
-          <div className="relative h-[20vmin] w-[20vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
-            <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
-            <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">Work</a>
-          </div>
-          </div>
-          <div className="w-[25%]">
-          <div className="relative h-[15vmin] w-[15vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
-            <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
-            <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">News</a>
-          </div>
-          </div>
-        </div>
-          <h1 className='-z-20 absolute left-0 right-0 -bottom-1/2 -translate-y-1/2 w-full text-center font-bold text-[22vw] text-gray-700 opacity-50 tracking-wide uppercase'>Explore</h1>  
-        </div>
+          </li>
+          <li>
+            <a href="#" className="flex justify-center items-center gap-2">
+              <h1 className="text-2xl font-bold">Soundcloud</h1>
+            </a>
+          </li> 
+          <li>
+            <a href="#" className="flex justify-center items-center gap-2">
+              <h1 className="text-2xl font-bold">Facebook</h1>
+            </a>
+          </li>
+        </ul>
+      </footer>
 
-
-    {/* Card section */}
-
-    <div className="card-section flex justify-center gap-24">
-      <Card/>
-      <Card/>
-    </div>
-
-
-    {/* Leave a mesage section */}
-
-    <div className="flex justify-center items-center w-full h-[70%] relative">
-        <div className="bg-white rounded-full w-32 h-32 absolute opacity-50 blur-sm"/>
-        <div className="bg-white rounded-full w-36 h-36 absolute blur-xl opacity-50"/>
-          <h1 className="text-6xl text-white text-center">Leave A <br/>&#8599;<br/> Message</h1>
-    </div>
-
-
-    {/* Footer */}
-
-    <footer>
-      <ul className="flex justify-end py-6 px-8 gap-8 text-white">
-        <li>
-          <a href="#" className="flex justify-center items-center gap-2">
-            <h1 className="text-2xl font-bold">Instagram</h1>
-          </a>
-        </li>
-        <li>
-          <a href="#" className="flex justify-center items-center gap-2">
-            <h1 className="text-2xl font-bold">Soundcloud</h1>
-          </a>
-        </li> 
-        <li>
-          <a href="#" className="flex justify-center items-center gap-2">
-            <h1 className="text-2xl font-bold">Facebook</h1>
-          </a>
-        </li>
-      </ul>
-    </footer>
     </div>
   );
 }
