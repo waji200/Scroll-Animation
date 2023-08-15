@@ -57,8 +57,6 @@ const StaticPage: React.FC<StaticPageProps> = ({ progress }) => {
     }
   },[progress, numFrames])
 
-  // Static pageunder the scrollable header
-
   return (
     <div className="w-full relative h-full">
 
