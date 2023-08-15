@@ -22,6 +22,14 @@ const StaticPage: React.FC<StaticPageProps> = ({ progress, imageSequence }) => {
   const [playSound3, { stopSound3 }] = useSound(sound3);
   const [playSound4, { stopSound4 }] = useSound(sound4);
 
+
+  const stopSoundFunctions = [stopSound1, stopSound2, stopSound3, stopSound4];
+  // Function to stop all sounds
+  const stopAllSounds = () => {
+    stopSoundFunctions.forEach(stopSound => stopSound());
+  };
+
+
   useEffect(() => {
     if(awardRef.current){
       if(progress === 553 / numFrames){
@@ -64,26 +72,26 @@ const StaticPage: React.FC<StaticPageProps> = ({ progress, imageSequence }) => {
       {/* Exlore section with buttons */}
       <div className="w-full relative h-[30rem] flex justify-center items-center overflow-hidden">
           <div className="grid grid-cols-2 lg:grid-cols-4 lg:w-[60%] m-auto justify-center items-center relative p-16 gap-10">
-            <div className="w-[25%]" onMouseEnter={() => playSound1()} onMouseLeave={() => stopSound1()}>
+            <div className="w-[25%]" onMouseEnter={() => playSound1()} onMouseLeave={stopAllSounds}>
             <div className="relative h-[25vmin] w-[25vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
               <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
               <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">About
               </a>
             </div>
             </div>
-            <div className="w-[25%]" onMouseEnter={() => playSound2()} onMouseLeave={() => stopSound2()}>
+            <div className="w-[25%]" onMouseEnter={() => playSound2()} onMouseLeave={stopAllSounds}>
             <div className="relative h-[15vmin] w-[15vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
               <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
               <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">Store</a>
             </div>
             </div>
-            <div className="w-[25%]" onMouseEnter={() => playSound3()} onMouseLeave={() => stopSound3()}>
+            <div className="w-[25%]" onMouseEnter={() => playSound3()} onMouseLeave={stopAllSounds}>
             <div className="relative h-[20vmin] w-[20vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
               <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
               <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">Work</a>
             </div>
             </div>
-            <div className="w-[25%]" onMouseEnter={() => playSound4()} onMouseLeave={() => stopSound4()}>
+            <div className="w-[25%]" onMouseEnter={() => playSound4()} onMouseLeave={stopAllSounds}>
                 <div className="relative h-[15vmin] w-[15vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
                   <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
                   <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">News</a>
