@@ -31,7 +31,7 @@ const StaticPage: React.FC<StaticPageProps> = ({ progress }) => {
   
     const soundElement = Sounds[index].current;
   
-    if (soundElement) {
+    if (soundElement && soundElement.paused) {
       soundElement.currentTime = 0;
       soundElement.play();
     }
@@ -86,39 +86,31 @@ const StaticPage: React.FC<StaticPageProps> = ({ progress }) => {
       {/* Exlore section with buttons */}
       <div className="w-full relative h-[30rem] flex justify-center items-center overflow-hidden">
           <div className="grid grid-cols-2 lg:grid-cols-4 lg:w-[60%] m-auto justify-center items-center relative p-16 gap-10">
-            <button className="w-[100%] bg-red-500">
-            <div className="relative h-[25vmin] w-[25vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]" onMouseEnter={() => soundHover(0)} onMouseLeave={() => stopSound(0)}>
+            <button className="relative h-[25vmin] w-[25vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]" onMouseEnter={() => soundHover(0)} onMouseLeave={() => stopSound(0)}>
               <audio ref={audio1} src={sound1} preload="auto">
               </audio>
               <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
               <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">About
               </a>
-            </div>
             </button>
-            <button className="w-[100%] bg-blue-600">
-            <div className="relative h-[15vmin] w-[15vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]" onMouseEnter={() => soundHover(1)} onMouseLeave={() => stopSound(1)}>
+            <button className="relative h-[15vmin] w-[15vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]" onMouseEnter={() => soundHover(1)} onMouseLeave={() => stopSound(1)}>
               <audio ref={audio2} src={sound2} preload="auto">
               </audio>
               <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
               <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">Store</a>
-            </div>
             </button>
-            <button className="w-[100%] bg-green-500">
-            <div className="relative h-[20vmin] w-[20vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]" onMouseEnter={() => soundHover(2)} onMouseLeave={() => stopSound(2)}>
+            <button className="relative h-[20vmin] w-[20vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]" onMouseEnter={() => soundHover(2)} onMouseLeave={() => stopSound(2)}>
               <audio ref={audio3} src={sound3} preload="auto">
               </audio>
               <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
               <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">Work</a>
-            </div>
             </button>
-            <button className="w-[100%] bg-purple-500">
-                <div className="relative h-[15vmin] w-[15vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]" onMouseEnter={() => soundHover(3)} onMouseLeave={() => stopSound(3)}>
+                <button className="relative h-[15vmin] w-[15vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]" onMouseEnter={() => soundHover(3)} onMouseLeave={() => stopSound(3)}>
               <audio ref={audio4} src={sound4} preload="auto">
               </audio>
                   <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
                   <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">News</a>
-                </div>
-              </button>
+                </button>
             </div>
             <div className='-z-[2] h-full absolute top-0 w-screen text-center font-bold text-gray-700 opacity-50 tracking-wide uppercase flex justify-center items-center'>
               <h1 className="origin-center text-[25vw]">Explore</h1>  
