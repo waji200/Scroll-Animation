@@ -1,15 +1,15 @@
 import React, { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
-import { ScrollToPlugin } from 'gsap/all';
+import { ScrollTrigger } from 'gsap/all';
 // import AnimationVideo from '/AnimationVideo.webm'
-// import AnimationVideoMp4 from '/animationmp4.mp4'
+// import AnimationVideoMp4 from '/Background.mp4'
 
 interface VideoProps {
   progress: number;
   imageSequence: string[];
 }
 
-gsap.registerPlugin(ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger);
 const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   // TODO: Below is the video ref to be combined with html video element
@@ -30,7 +30,7 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
   const imgElement10Ref = useRef<HTMLImageElement>(null);
   const imgElement11Ref = useRef<HTMLImageElement>(null);
   const imgElement12Ref = useRef<HTMLImageElement>(null);
-  const numFrames = imageSequence.length;
+  const numFrames = 553;
   const [currentImage, setCurrentImage] = useState<HTMLImageElement | null>(null);
   const [isImageLoaded, setImageLoaded] = useState(false);
 
@@ -50,92 +50,89 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
       setCurrentImage(images[Math.floor(progress * (numFrames - 1))]);
       setImageLoaded(true);
       if(progress < 5 / numFrames){
-        gsap.to(window, { scrollTo: { y: 900, autoKill: false }, duration: 1 })
+        gsap.to(window, { scrollTo: { y: 3500, autoKill: false }, duration: 1 })
       }
     };
 
     preloadImages();
 
-    // let animationFrame: number;
-
-    // const initialLoadAnimation = () => {
-
-//     // Scroll to progress === 70 when the component loads
-//   if (progress < 5 / numFrames) {
-//     const targetScroll = 1500;
-
-//     gsap.set(window, 
-//       {
-//       scrollTo: { y: targetScroll },
-//       duration: 3,
-//       scrollBehavior: 'smooth',    }
-//     );
-//   }
-//   animationFrame = requestAnimationFrame(initialLoadAnimation)
-// }
-
-//   initialLoadAnimation();
-
-//   return () => cancelAnimationFrame(animationFrame)
-
   }, [progress, numFrames, imageSequence]);
 
 
 // TODO: This is the video code
+
 // useEffect(() => {
-//   const updateVideoFrame = () => {
-//     if (videoRef.current) {
-//       const newTime = progress * videoRef.current.duration;
-//       if(!newTime) return;
-//       videoRef.current.currentTime = newTime;
-      // console.log(newTime);
+
+//   if (videoRef.current) {
+//     const numFrames = 553; // Adjust the number of frames in your video
+//     const frameHeight = window.innerHeight / numFrames; // Height per frame
+
+//     if(!frameHeight) return;
     
-//     }
+//     const tl = gsap.timeline({
+//       scrollTrigger: {
+//         trigger: videoRef.current,
+//         scrub: true, // Enable smooth scrubbing
+//          // Pin the video container while it's in view
+//         start: 'top top', // Start pinning at the top of the video
+//         end: `+=${frameHeight * numFrames}`, // Pin for the entire video height
+//         onUpdate: (self) => {
+//           const scrollProgress = self.progress;
+//           console.log(scrollProgress)
+//           if(!scrollProgress) return;
+//           if (videoRef.current) {
+//           const updatedTime = (scrollProgress * numFrames) / videoRef.current.duration;
+//           console.log(updatedTime)
+//           videoRef.current.currentTime = updatedTime;
+//           }
+//         },
+//       },
+//     });
+
+//     tl.to({}, {}); // Just an empty animation to trigger the ScrollTrigger
+//   }
+// });
 
 
-// }, [progress]);
 
 
 
+useEffect(() => {
 
+let animationFrameId: number;
 
-  useEffect(() => {
-    let animationFrameId: number;
+const updateCanvas = () => {
+  if (isImageLoaded && currentImage) {
+    const canvas = canvasRef.current;
+    const context = canvas?.getContext('2d');
 
-    const updateCanvas = () => {
-      if (isImageLoaded && currentImage) {
-        const canvas = canvasRef.current;
-        const context = canvas?.getContext('2d');
+    if (context) {
+      const canvasWidth = canvas!.parentElement!.clientWidth;
+      const canvasHeight = canvas!.parentElement!.clientHeight;
 
-        if (context) {
-          const canvasWidth = canvas!.parentElement!.clientWidth;
-          const canvasHeight = canvas!.parentElement!.clientHeight;
+      context.clearRect(0, 0, canvasWidth, canvasHeight);
 
-          context.clearRect(0, 0, canvasWidth, canvasHeight);
+      const imageAspectRatio = currentImage.width / currentImage.height;
+      const canvasAspectRatio = canvasWidth / canvasHeight;
 
-          const imageAspectRatio = currentImage.width / currentImage.height;
-          const canvasAspectRatio = canvasWidth / canvasHeight;
+      let drawWidth = currentImage.width;
+      let drawHeight = currentImage.height;
 
-          let drawWidth = currentImage.width;
-          let drawHeight = currentImage.height;
-
-          if (imageAspectRatio > canvasAspectRatio) {
-            drawHeight = canvasHeight;
-            drawWidth = canvasHeight * imageAspectRatio;
-          } else {
-            drawWidth = canvasWidth;
-            drawHeight = canvasWidth / imageAspectRatio;
-          }
-
-          const offsetX = (canvasWidth - drawWidth) / 2;
-          const offsetY = (canvasHeight - drawHeight) / 2;
-
-          context.drawImage(currentImage, offsetX, offsetY, drawWidth, drawHeight);
-        }
+      if (imageAspectRatio > canvasAspectRatio) {
+        drawHeight = canvasHeight;
+        drawWidth = canvasHeight * imageAspectRatio;
+      } else {
+        drawWidth = canvasWidth;
+        drawHeight = canvasWidth / imageAspectRatio;
       }
 
-      animationFrameId = requestAnimationFrame(updateCanvas);
-    };
+      const offsetX = (canvasWidth - drawWidth) / 2;
+      const offsetY = (canvasHeight - drawHeight) / 2;
+
+      context.drawImage(currentImage, offsetX, offsetY, drawWidth, drawHeight); 
+    }
+  }
+};
 
     if (isImageLoaded && currentImage) {
       animationFrameId = requestAnimationFrame(updateCanvas);
@@ -144,7 +141,7 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [isImageLoaded, currentImage]);
+  }, [isImageLoaded, currentImage, progress]);
 
   useEffect(() => {
     // Show text overlay for 5 seconds when the image sequence starts
@@ -182,7 +179,7 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
         if (progress > 300 / numFrames && progress < 553 / numFrames) {
           const scaleValue =
             (progress - 300 / numFrames) * (20 / (553 / numFrames - 300 / numFrames) * 0.2);
-          gsap.set(imgRef.current, { autoAlpha: 1, scale: scaleValue, display: 'flex' });
+          gsap.set(imgRef.current, { autoAlpha: 1, scale: scaleValue * 2, display: 'flex' });
         } else {
           gsap.set(imgRef.current, { autoAlpha: 0, scale: '0', display: 'hidden' });
         }
@@ -331,56 +328,84 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
         <h1 className='text-white absolute top-[15%] left-[5%] text-6xl drop-shadow-[0_0_3px_rgba(255,56,46,1)]'>DARE. DISCOVERY. CREATION.</h1>
       </div>
       {/* Img Overlay */}
-      
-  <div ref={imgElementRef} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
-    <img  className='rounded-full w-32 h-32' src="/project-bbc-frozen-planet-2.webp" alt="" />
-    <div className='relative top-0 w-full h-full mx-auto z-20'>
-      <p className='font-bold'>Project Frozen Planet 2</p>
-      <img className='rounded-full w-32 h-32 z-0' src="/project-frozen-planet-2.webp" alt="" />
-    </div>
+      <div
+        ref={imgRef}
+        className='absolute w-full h-full flex justify-center items-center text-white font-bold shrink-0'
+      >
+        <div ref={imgElementRef} className={`rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12] overflow-clip cursor-pointer bg-[url('/project-bbc-frozen-planet-2.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
   </div>
-  <div ref={imgElement2Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
-    <img className='rounded-full w-32 h-32' src="/project-cnn-this-morning.webp" alt="" />
-    
+</div>
+<div ref={imgElement2Ref} className={`rounded-full w-32 h-32 absolute top-[45%] left-[45%] z-[11] overflow-clip cursor-pointer bg-[url('/project-cnn-this-morning.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
   </div>
-  <div ref={imgElement3Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
-    <img className='rounded-full w-32 h-32' src="/project-primate.webp" alt="" />
-    
+</div>
+<div ref={imgElement3Ref} className={`rounded-full w-32 h-32 absolute top-[45%] right-[45%] z-[10] overflow-clip cursor-pointer bg-[url('/project-primate.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
   </div>
-  <div ref={imgElement4Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
-    <img className='rounded-full w-32 h-32' src="/project-planet-earth.webp" alt="" />
-    
+</div>
+<div ref={imgElement4Ref} className={`rounded-full w-32 h-32 absolute bottom-[40%] right-[45%] z-[9] overflow-clip cursor-pointer bg-[url('/project-planet-earth.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
   </div>
-  <div ref={imgElement5Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
-    <img className='rounded-full w-32 h-32' src="/project-jeopardy.webp" alt="" />
-    
+</div>
+<div ref={imgElement5Ref} className={`rounded-full w-32 h-32 absolute top-[50%] left-[45%] z-[8] overflow-clip cursor-pointer bg-[url('/project-jeopardy.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
   </div>
-  <div ref={imgElement6Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
-    <img className='rounded-full w-32 h-32' src="/project-being-the-queen.webp" alt="" />
-    
+</div>
+<div ref={imgElement6Ref} className={`rounded-full w-32 h-32 absolute top-[55%] left-[45%] z-[7] overflow-clip cursor-pointer bg-[url('/project-being-the-queen.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
   </div>
-  <div ref={imgElement7Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
+</div>
+<div ref={imgElement7Ref} className={`rounded-full w-32 h-32 absolute top-[40%] right-[43%] z-[6] overflow-clip cursor-pointer bg-[url('/project-frozen-planet-2.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
   </div>
-  <div ref={imgElement8Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
-    <img className='rounded-full w-32 h-32' src="/project-minecraft-legends.webp" alt="" />
-    
+</div>
+<div ref={imgElement8Ref} className={`rounded-full w-32 h-32 absolute bottom-[40%] right-[45%] z-[5] overflow-clip cursor-pointer bg-[url('/project-minecraft-legends.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
   </div>
-  <div ref={imgElement9Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
-    <img className='rounded-full w-32 h-32' src="/project-flooded-tombs.webp" alt="" />
-    
+</div>
+<div ref={imgElement9Ref} className={`rounded-full w-32 h-32 absolute top-[45%] left-[50%] z-[4] overflow-clip cursor-pointer bg-[url('/project-flooded-tombs.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
   </div>
-  <div ref={imgElement10Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
-    <img className='rounded-full w-32 h-32' src="/project-national-geographic.webp" alt="" />
-    
+</div>
+<div ref={imgElement10Ref} className={`rounded-full w-32 h-32 absolute top-[45%] left-[40%] z-[3] overflow-clip cursor-pointer bg-[url('/project-national-geographic.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
   </div>
-  <div ref={imgElement11Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
-    <img className='rounded-full w-32 h-32' src="/project-roman-empire.webp" alt="" />
-    
+</div>
+<div ref={imgElement11Ref} className={`rounded-full w-32 h-32 absolute bottom-[45%] right-[43%] z-[2] overflow-clip cursor-pointer bg-[url('/project-roman-empire.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
   </div>
-  <div ref={imgElement12Ref} className='rounded-full w-32 h-32 absolute top-[40%] left-[45%] z-[12]'>
-    <img className='rounded-full w-32 h-32' src="/project-superbowl-lv.webp" alt="" />
-    
+</div>
+<div ref={imgElement12Ref} className={`rounded-full w-32 h-32 absolute top-[45%] right-[41%] z-[1] overflow-clip cursor-pointer bg-[url('/project-superbowl-lv.webp')] bg-cover`}>
+  <div className='w-full h-full opacity-0 hover:bg-black hover:opacity-70 transition-all duration-300 text-center flex flex-col justify-center items-center'>
+    <h1>Heading</h1>
+    <p className='text-xs'>paragraph about the photo</p>
   </div>
+</div>
+
+      </div>
 
       {/* Canvas */}
       <canvas
@@ -392,12 +417,14 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
         </canvas>
 
         {/* Video Component */}
-        {/* <video src='/AnimationVideo.webm'
+        {/* <video src={AnimationVideo}
         ref={videoRef} 
         width={canvasRef.current?.parentElement?.clientWidth} // Adjust the canvas size as needed
         height={canvasRef.current?.parentElement?.clientHeight}
         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        ></video> */}
+        preload='auto'
+        playsInline
+        controls        ></video> */}
     </div>
   );
 };

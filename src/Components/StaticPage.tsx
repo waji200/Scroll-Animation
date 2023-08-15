@@ -9,7 +9,6 @@ import sound4 from "../assets/sounds/sound4.mp3";
 
 interface StaticPageProps {
   progress: number;
-  imageSequence: string[];
 }
 
 const StaticPage: React.FC<StaticPageProps> = ({ progress }) => {
@@ -54,7 +53,7 @@ const StaticPage: React.FC<StaticPageProps> = ({ progress }) => {
     }
     
     if(progress === 553 / numFrames){
-      gsap.to(window, { scrollTo: { y: 6100, autoKill: false }, duration: 1 })
+      gsap.to(window, { scrollTo: { y: 23500, autoKill: false }, duration: 1 })
     }
   },[progress, numFrames])
 
@@ -62,7 +61,7 @@ const StaticPage: React.FC<StaticPageProps> = ({ progress }) => {
   // Static pageunder the scrollable header
 
   return (
-    <div className="w-full relative h-full p-6">
+    <div className="w-full relative h-full">
 
     {/* ~Award Section */}
     <div ref={awardRef} className="flex justify-center items-center gap-6 p-12 mx-auto text-white text-center">
@@ -82,7 +81,7 @@ const StaticPage: React.FC<StaticPageProps> = ({ progress }) => {
       <p className="text-xl font-light">Nominee</p>
       </div>
     </div>
-
+      
       {/* Exlore section with buttons */}
       <div className="w-full relative h-[30rem] flex justify-center items-center overflow-hidden">
           <div className="grid grid-cols-2 lg:grid-cols-4 lg:w-[60%] m-auto justify-center items-center relative p-16 gap-10">
