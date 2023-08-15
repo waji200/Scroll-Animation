@@ -62,6 +62,7 @@ const Video: React.FC<VideoProps> = ({ progress, imageSequence }) => {
 // TODO: This is the video code
 
 // useEffect(() => {
+
 //   if (videoRef.current) {
 //     const numFrames = 553; // Adjust the number of frames in your video
 //     const frameHeight = window.innerHeight / numFrames; // Height per frame
