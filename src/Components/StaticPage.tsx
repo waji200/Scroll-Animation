@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import BlobAnimation from "./BlobAnimation";
 import Card from "./Card";
 import gsap from "gsap";
-import useSound from 'use-sound';
 import sound1 from "../assets/sounds/sound1.mp3";
 import sound2 from "../assets/sounds/sound2.mp3";
 import sound3 from "../assets/sounds/sound3.mp3";
@@ -13,22 +12,37 @@ interface StaticPageProps {
   imageSequence: string[];
 }
 
-const StaticPage: React.FC<StaticPageProps> = ({ progress, imageSequence }) => {
+const StaticPage: React.FC<StaticPageProps> = ({ progress }) => {
 
   const awardRef = useRef<HTMLDivElement | null>(null)
   const numFrames = 553
-  const [playSound1, { stopSound1 }] = useSound(sound1);
-  const [playSound2, { stopSound2 }] = useSound(sound2);
-  const [playSound3, { stopSound3 }] = useSound(sound3);
-  const [playSound4, { stopSound4 }] = useSound(sound4);
 
+  const audio1 = useRef<HTMLAudioElement>(null);
+  const audio2 = useRef<HTMLAudioElement>(null);
+  const audio3 = useRef<HTMLAudioElement>(null);
+  const audio4 = useRef<HTMLAudioElement>(null);
 
-  const stopSoundFunctions = [stopSound1, stopSound2, stopSound3, stopSound4];
-  // Function to stop all sounds
-  const stopAllSounds = () => {
-    stopSoundFunctions.forEach(stopSound => stopSound());
-  };
+  const Sounds = [audio1, audio2, audio3, audio4]
 
+  const soundHover = (index: number) => {
+    if (index === null || Sounds[index]?.current === undefined) {
+      return;
+    }
+  
+    const soundElement = Sounds[index].current;
+  
+    if (soundElement) {
+      soundElement.currentTime = 0;
+      soundElement.play();
+    }
+  }
+  const stopSound = (index: number) => {
+    if(Sounds[index].current){
+      setTimeout(() => {
+      Sounds[index].current?.pause();
+      },500)
+    }
+  }
 
   useEffect(() => {
     if(awardRef.current){
@@ -72,31 +86,39 @@ const StaticPage: React.FC<StaticPageProps> = ({ progress, imageSequence }) => {
       {/* Exlore section with buttons */}
       <div className="w-full relative h-[30rem] flex justify-center items-center overflow-hidden">
           <div className="grid grid-cols-2 lg:grid-cols-4 lg:w-[60%] m-auto justify-center items-center relative p-16 gap-10">
-            <div className="w-[25%]" onMouseEnter={() => playSound1()} onMouseLeave={stopAllSounds}>
-            <div className="relative h-[25vmin] w-[25vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
+            <button className="w-[100%] bg-red-500">
+            <div className="relative h-[25vmin] w-[25vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]" onMouseEnter={() => soundHover(0)} onMouseLeave={() => stopSound(0)}>
+              <audio ref={audio1} src={sound1} preload="auto">
+              </audio>
               <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
               <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">About
               </a>
             </div>
-            </div>
-            <div className="w-[25%]" onMouseEnter={() => playSound2()} onMouseLeave={stopAllSounds}>
-            <div className="relative h-[15vmin] w-[15vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
+            </button>
+            <button className="w-[100%] bg-blue-600">
+            <div className="relative h-[15vmin] w-[15vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]" onMouseEnter={() => soundHover(1)} onMouseLeave={() => stopSound(1)}>
+              <audio ref={audio2} src={sound2} preload="auto">
+              </audio>
               <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
               <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">Store</a>
             </div>
-            </div>
-            <div className="w-[25%]" onMouseEnter={() => playSound3()} onMouseLeave={stopAllSounds}>
-            <div className="relative h-[20vmin] w-[20vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
+            </button>
+            <button className="w-[100%] bg-green-500">
+            <div className="relative h-[20vmin] w-[20vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]" onMouseEnter={() => soundHover(2)} onMouseLeave={() => stopSound(2)}>
+              <audio ref={audio3} src={sound3} preload="auto">
+              </audio>
               <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
               <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">Work</a>
             </div>
-            </div>
-            <div className="w-[25%]" onMouseEnter={() => playSound4()} onMouseLeave={stopAllSounds}>
-                <div className="relative h-[15vmin] w-[15vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
+            </button>
+            <button className="w-[100%] bg-purple-500">
+                <div className="relative h-[15vmin] w-[15vmin] mx-auto drop-shadow-[0_0_8px_rgba(255,255,255,1)]" onMouseEnter={() => soundHover(3)} onMouseLeave={() => stopSound(3)}>
+              <audio ref={audio4} src={sound4} preload="auto">
+              </audio>
                   <BlobAnimation className="h-full w-full absolute top-0 left-0 -z-10"/>
                   <a href="#" className="font-bold text-3xl text-center flex justify-center items-center h-full w-full absolute top-0 left-0">News</a>
                 </div>
-              </div>
+              </button>
             </div>
             <div className='-z-[2] h-full absolute top-0 w-screen text-center font-bold text-gray-700 opacity-50 tracking-wide uppercase flex justify-center items-center'>
               <h1 className="origin-center text-[25vw]">Explore</h1>  
@@ -119,6 +141,8 @@ const StaticPage: React.FC<StaticPageProps> = ({ progress, imageSequence }) => {
           <div className="bg-white rounded-full w-36 h-36 absolute blur-xl opacity-50"/>
             <h1 className="text-6xl text-white text-center">Leave A <br/>&#8599;<br/> Message</h1>
       </div>
+
+      
 
 
       {/* Footer */}
